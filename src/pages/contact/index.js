@@ -1,10 +1,34 @@
-import React, { useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import * as emailjs from "emailjs-com";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { meta } from "../../content_option";
 import { Container, Row, Col, Alert } from "react-bootstrap";
 import { contactConfig } from "../../content_option";
+
+const emailDefaults = new Set(["service_id", "template_id", "user_id"]);
+
+const getEmailConfigState = () => {
+  const values = {
+    serviceId: contactConfig.YOUR_SERVICE_ID,
+    templateId: contactConfig.YOUR_TEMPLATE_ID,
+    userId: contactConfig.YOUR_USER_ID,
+  };
+
+  const missing = Object.entries(values)
+    .filter(([, value]) => !value || emailDefaults.has(value))
+    .map(([key]) => key);
+
+  return {
+    values,
+    missing,
+    envAtBuild: {
+      REACT_APP_EMAILJS_SERVICE_ID: process.env.REACT_APP_EMAILJS_SERVICE_ID,
+      REACT_APP_EMAILJS_TEMPLATE_ID: process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+      REACT_APP_EMAILJS_PUBLIC_KEY: process.env.REACT_APP_EMAILJS_PUBLIC_KEY,
+    },
+  };
+};
 
 export const ContactUs = () => {
   const [formData, setFormdata] = useState({
@@ -17,9 +41,38 @@ export const ContactUs = () => {
     variant: "",
   });
 
+  const { missing, envAtBuild } = useMemo(() => getEmailConfigState(), []);
+
+  useEffect(() => {
+    if (missing.length > 0) {
+      console.warn(
+        "[EmailJS config] Using placeholder EmailJS values instead of real credentials. GitHub Pages serves a static bundle, so REACT_APP_EMAILJS_* values must be present in the build step (for example in the Actions workflow) and cannot be injected at runtime.",
+        {
+          missing,
+          valuesUsedInBundle: envAtBuild,
+          contactConfigValues: getEmailConfigState().values,
+        }
+      );
+    }
+  }, [envAtBuild, missing]);
+
+  const isEmailServiceConfigured = () => missing.length === 0;
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    setFormdata({ loading: true });
+    setFormdata((prev) => ({ ...prev, loading: true }));
+
+    if (!isEmailServiceConfigured()) {
+      setFormdata((prev) => ({
+        ...prev,
+        loading: false,
+        alertmessage:
+          "Email service is not configured. GitHub Pages cannot read secrets at runtime, so be sure REACT_APP_EMAILJS_* values are present during the build (for example via a workflow secret) instead of relying on the defaults in contactConfig.",
+        variant: "warning",
+        show: true,
+      }));
+      return;
+    }
 
     const templateParams = {
       from_name: formData.email,
@@ -38,20 +91,26 @@ export const ContactUs = () => {
       .then(
         (result) => {
           console.log(result.text);
-          setFormdata({
+          setFormdata((prev) => ({
+            ...prev,
+            email: "",
+            name: "",
+            message: "",
             loading: false,
-            alertmessage: "SUCCESS! ,Thankyou for your messege",
+            alertmessage: "Success! Thank you for your message.",
             variant: "success",
             show: true,
-          });
+          }));
         },
         (error) => {
           console.log(error.text);
-          setFormdata({
-            alertmessage: `Faild to send!,${error.text}`,
+          setFormdata((prev) => ({
+            ...prev,
+            loading: false,
+            alertmessage: `Failed to send: ${error.text}`,
             variant: "danger",
             show: true,
-          });
+          }));
           document.getElementsByClassName("co_alert")[0].scrollIntoView();
         }
       );
@@ -86,7 +145,7 @@ export const ContactUs = () => {
               className={`rounded-0 co_alert ${
                 formData.show ? "d-block" : "d-none"
               }`}
-              onClose={() => setFormdata({ show: false })}
+              onClose={() => setFormdata((prev) => ({ ...prev, show: false }))}
               dismissible
             >
               <p className="my-0">{formData.alertmessage}</p>
