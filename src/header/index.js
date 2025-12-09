@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import "./style.css";
 import { VscGrabber, VscClose } from "react-icons/vsc";
 import { Link } from "react-router-dom";
-import { logotext ,socialprofils } from "../content_option";
-import Themetoggle from "../components/themetoggle";
+import { logotext, socialprofils } from "../content_option";
 
 const Headermain = () => {
   const [isActive, setActive] = useState("false");
@@ -21,7 +20,6 @@ const Headermain = () => {
             {logotext}
           </Link>
           <div className="d-flex align-items-center">
-          <Themetoggle />
           <button className="menu__button  nav_ac" onClick={handleToggle}>
             {!isActive ? <VscClose /> : <VscGrabber />}
           </button>
@@ -35,13 +33,13 @@ const Headermain = () => {
               <div className="menu__container p-3">
                 <ul className="the_menu">
                   <li className="menu_item ">
-                  <Link  onClick={handleToggle} to="/" className="my-3">Home</Link>
+                  <Link  onClick={handleToggle} to="/" className="my-3">Accueil</Link>
                   </li>
                   <li className="menu_item">
                     <Link  onClick={handleToggle} to="/portfolio" className="my-3"> Portfolio</Link>
                   </li>
                   <li className="menu_item">
-                  <Link onClick={handleToggle} to="/about" className="my-3">About</Link>
+                  <Link onClick={handleToggle} to="/about" className="my-3">À propos</Link>
                   </li>
                   <li className="menu_item">
                   <Link onClick={handleToggle} to="/contact" className="my-3"> Contact</Link>
@@ -52,11 +50,10 @@ const Headermain = () => {
           </div>
           <div className="menu_footer d-flex flex-column flex-md-row justify-content-between align-items-md-center position-absolute w-100 p-3">
             <div className="d-flex">
-            <a href={socialprofils.facebook}>Facebook</a>
-            <a href={socialprofils.github}>Github</a>
-            <a href={socialprofils.twitter}>Twitter</a>
+            <a href={socialprofils.linkedin}>LinkedIn</a>
+            <a href={socialprofils.instagram}>Instagram</a>
             </div>
-            <p className="copyright m-0">copyright __ {logotext}</p>
+            <p className="copyright m-0">© {logotext}</p>
           </div>
         </div>
       </header>

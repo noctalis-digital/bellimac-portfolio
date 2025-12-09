@@ -46,7 +46,7 @@ export const ContactUs = () => {
   useEffect(() => {
     if (missing.length > 0) {
       console.warn(
-        "[EmailJS config] Using placeholder EmailJS values instead of real credentials. GitHub Pages serves a static bundle, so REACT_APP_EMAILJS_* values must be present in the build step (for example in the Actions workflow) and cannot be injected at runtime.",
+        "[Configuration EmailJS] Utilisation des valeurs de remplacement au lieu d'identifiants réels. GitHub Pages sert un bundle statique : les variables REACT_APP_EMAILJS_* doivent être présentes pendant le build (par exemple dans le workflow Actions) et ne peuvent pas être injectées à l'exécution.",
         {
           missing,
           valuesUsedInBundle: envAtBuild,
@@ -67,7 +67,7 @@ export const ContactUs = () => {
         ...prev,
         loading: false,
         alertmessage:
-          "Email service is not configured. GitHub Pages cannot read secrets at runtime, so be sure REACT_APP_EMAILJS_* values are present during the build (for example via a workflow secret) instead of relying on the defaults in contactConfig.",
+          "Le service d'email n'est pas configuré. GitHub Pages ne peut pas lire les secrets à l'exécution : assurez-vous que les variables REACT_APP_EMAILJS_* sont présentes pendant le build (par exemple via un secret de workflow) au lieu de compter sur les valeurs par défaut de contactConfig.",
         variant: "warning",
         show: true,
       }));
@@ -97,7 +97,7 @@ export const ContactUs = () => {
             name: "",
             message: "",
             loading: false,
-            alertmessage: "Success! Thank you for your message.",
+            alertmessage: "Message envoyé ! Merci pour votre message.",
             variant: "success",
             show: true,
           }));
@@ -107,7 +107,7 @@ export const ContactUs = () => {
           setFormdata((prev) => ({
             ...prev,
             loading: false,
-            alertmessage: `Failed to send: ${error.text}`,
+            alertmessage: `Échec de l'envoi : ${error.text}`,
             variant: "danger",
             show: true,
           }));
@@ -128,12 +128,12 @@ export const ContactUs = () => {
       <Container>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>{meta.title} | Contact</title>
+          <title>Contact | {meta.title}</title>
           <meta name="description" content={meta.description} />
         </Helmet>
         <Row className="mb-5 mt-3 pt-md-3">
           <Col lg="8">
-            <h1 className="display-4 mb-4">Contact Me</h1>
+            <h1 className="display-4 mb-4">Contactez-moi</h1>
             <hr className="t_border my-4 ml-0 text-left" />
           </Col>
         </Row>
@@ -152,9 +152,9 @@ export const ContactUs = () => {
             </Alert>
           </Col>
           <Col lg="5" className="mb-5">
-            <h3 className="color_sec py-4">Get in touch</h3>
+            <h3 className="color_sec py-4">Restons en contact</h3>
             <address>
-              <strong>Email:</strong>{" "}
+              <strong>Email :</strong>{" "}
               <a href={`mailto:${contactConfig.YOUR_EMAIL}`}>
                 {contactConfig.YOUR_EMAIL}
               </a>
@@ -162,7 +162,7 @@ export const ContactUs = () => {
               <br />
               {contactConfig.hasOwnProperty("YOUR_FONE") ? (
                 <p>
-                  <strong>Phone:</strong> {contactConfig.YOUR_FONE}
+                  <strong>Téléphone :</strong> {contactConfig.YOUR_FONE}
                 </p>
               ) : (
                 ""
@@ -178,7 +178,7 @@ export const ContactUs = () => {
                     className="form-control"
                     id="name"
                     name="name"
-                    placeholder="Name"
+                    placeholder="Nom"
                     value={formData.name || ""}
                     type="text"
                     required
@@ -212,7 +212,7 @@ export const ContactUs = () => {
               <Row>
                 <Col lg="12" className="form-group">
                   <button className="btn ac_btn" type="submit">
-                    {formData.loading ? "Sending..." : "Send"}
+                    {formData.loading ? "Envoi..." : "Envoyer"}
                   </button>
                 </Col>
               </Row>
