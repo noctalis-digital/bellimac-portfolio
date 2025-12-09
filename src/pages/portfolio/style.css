@@ -107,3 +107,28 @@
     border: 1px solid var(--secondary-color);
     background: var(--bg-color);
 }
+
+.po_placeholder {
+    min-height: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-color);
+    color: var(--text-color);
+    padding: 12px;
+}
+
+.rich-text p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.rich-text ul,
+.rich-text ol {
+    padding-left: 1.4rem;
+    margin-bottom: 1rem;
+}
+
+.rich-text a {
+    color: var(--primary-color);
+}

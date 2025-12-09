@@ -2,9 +2,9 @@ import React, { useEffect, useMemo, useState } from "react";
 import * as emailjs from "emailjs-com";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { meta } from "../../content_option";
+import { meta } from "../../config/siteContent";
 import { Container, Row, Col, Alert } from "react-bootstrap";
-import { contactConfig } from "../../content_option";
+import { contactConfig } from "../../config/siteContent";
 
 const emailDefaults = new Set(["service_id", "template_id", "user_id"]);
 

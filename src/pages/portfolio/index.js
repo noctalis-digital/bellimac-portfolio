@@ -1,17 +1,72 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./style.css";
 import "../home/style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import Typewriter from "typewriter-effect";
 import { Container, Row, Col } from "react-bootstrap";
 import Modal from "react-bootstrap/Modal";
-import { dataportfolio, introdata, meta } from "../../content_option";
+import { introdata, meta } from "../../config/siteContent";
 import { Link } from "react-router-dom";
+import { fetchPortfolio } from "../../services/portfolioApi";
+
+const normalizeProject = (project) => {
+  const gallery =
+    project?.gallery?.map((item) => item.url || item) ||
+    project?.galleryUrls ||
+    [];
+  const coverUrl =
+    project.coverUrl ||
+    project.cover?.url ||
+    gallery[0] ||
+    project.img ||
+    "";
+
+  return {
+    id: project.id,
+    title: project.title || "Projet",
+    description: project.description || "",
+    detailsHtml: project.detailsHtml || "",
+    link: project.link || "",
+    coverUrl,
+    gallery,
+    updatedAt: project.updatedAt,
+  };
+};
 
 export const Portfolio = () => {
   const [selectedProject, setSelectedProject] = useState(null);
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const pageTitle = `Portfolio | ${meta.title}`;
   const pageDescription = meta.description;
+
+  useEffect(() => {
+    let active = true;
+    const load = async () => {
+      try {
+        const items = await fetchPortfolio();
+        if (!active) return;
+        setProjects(items.map((item) => normalizeProject(item)));
+      } catch (err) {
+        console.error("[portfolio] Chargement impossible", err);
+        if (active) {
+          setError(
+            err.message || "Impossible de charger le portfolio pour le moment."
+          );
+        }
+      } finally {
+        if (active) {
+          setLoading(false);
+        }
+      }
+    };
+
+    load();
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const openProject = (project) => {
     setSelectedProject(project);
@@ -78,22 +133,42 @@ export const Portfolio = () => {
             </Col>
           </Row>
           <div className="mb-5 po_items_ho" id="portfolio-grid">
-            {dataportfolio.map((data, i) => {
-              return (
-                <div key={i} className="po_item">
-                  <img src={data.img} alt="" />
-                  <div className="content">
-                    <button
-                      type="button"
-                      className="po_btn"
-                      onClick={() => openProject(data)}
-                    >
-                      Voir le projet
-                    </button>
+            {loading && (
+              <p className="text-muted">Chargement du portfolio...</p>
+            )}
+            {error && <p className="text-warning">{error}</p>}
+            {!loading && !error && projects.length === 0 && (
+              <p className="text-muted">
+                Les projets seront publiés ici dès qu'ils seront disponibles.
+              </p>
+            )}
+            {!loading &&
+              !error &&
+              projects.map((project) => {
+                return (
+                  <div key={project.id || project.title} className="po_item">
+                    {project.coverUrl ? (
+                      <img
+                        src={project.coverUrl}
+                        alt={project.title || "Projet"}
+                      />
+                    ) : (
+                      <div className="po_placeholder">
+                        <p>Image à venir</p>
+                      </div>
+                    )}
+                    <div className="content">
+                      <button
+                        type="button"
+                        className="po_btn"
+                        onClick={() => openProject(project)}
+                      >
+                        Voir le projet
+                      </button>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
           </div>
         </Container>
 
@@ -113,8 +188,13 @@ export const Portfolio = () => {
             {selectedProject?.description && (
               <p className="mb-3">{selectedProject.description}</p>
             )}
-            {selectedProject?.details && (
-              <p className="mb-4">{selectedProject.details}</p>
+            {selectedProject?.detailsHtml && (
+              <div
+                className="mb-4 rich-text"
+                dangerouslySetInnerHTML={{
+                  __html: selectedProject.detailsHtml,
+                }}
+              />
             )}
             {selectedProject?.gallery?.length ? (
               <div className="modal-gallery">
@@ -126,13 +206,25 @@ export const Portfolio = () => {
                   />
                 ))}
               </div>
-            ) : selectedProject?.img ? (
+            ) : selectedProject?.coverUrl ? (
               <img
-                src={selectedProject.img}
+                src={selectedProject.coverUrl}
                 alt={selectedProject.title || "Projet"}
                 className="w-100"
               />
             ) : null}
+            {selectedProject?.link && (
+              <div className="mt-3">
+                <a
+                  href={selectedProject.link}
+                  className="btn ac_btn"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Ouvrir le lien
+                </a>
+              </div>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <button className="btn ac_btn" onClick={closeModal}>

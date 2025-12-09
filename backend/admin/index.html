@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bellimac | Admin Portfolio</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.snow.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="page-header">
+    <div>
+      <p class="eyebrow">Bellimac</p>
+      <h1>Admin portfolio</h1>
+      <p class="subtitle">Ajoutez, modifiez et supprimez les projets. Les images et les textes formatés sont envoyés sur S3.</p>
+    </div>
+    <div class="badge">S3 eu-west-3</div>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <div class="panel__header">
+        <h2>Authentification</h2>
+        <p>Un jeton est requis pour créer, modifier ou supprimer.</p>
+      </div>
+      <form id="authForm" class="inline-form">
+        <label for="adminToken">Jeton admin (ADMIN_API_KEY)</label>
+        <div class="inline-form__row">
+          <input id="adminToken" name="adminToken" type="password" placeholder="••••••••" autocomplete="current-password" required>
+          <button type="submit" class="btn">Enregistrer</button>
+        </div>
+        <p class="hint">Le jeton est conservé dans le stockage local de votre navigateur.</p>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="panel__header">
+        <h2 id="formTitle">Créer un projet</h2>
+        <div class="panel__actions">
+          <button class="ghost-btn" type="button" id="resetFormBtn" aria-label="Réinitialiser le formulaire">Réinitialiser</button>
+        </div>
+      </div>
+      <form id="projectForm" class="form-grid" enctype="multipart/form-data">
+        <input type="hidden" id="projectId" name="projectId">
+        <label class="field">
+          <span>Titre *</span>
+          <input type="text" id="title" name="title" required>
+        </label>
+        <label class="field">
+          <span>Description courte *</span>
+          <textarea id="description" name="description" rows="2" required></textarea>
+        </label>
+        <label class="field">
+          <span>Lien externe (optionnel)</span>
+          <input type="url" id="link" name="link" placeholder="https://...">
+        </label>
+        <div class="field">
+          <div class="field__label">Texte détaillé (formatable)</div>
+          <div id="detailsEditor" class="editor"></div>
+          <input type="hidden" id="detailsHtml" name="detailsHtml">
+        </div>
+        <label class="field">
+          <span>Image de couverture *</span>
+          <input type="file" id="cover" name="cover" accept="image/*" required>
+          <p class="hint">PNG / JPG / WEBP, 15 Mo max.</p>
+        </label>
+        <label class="field">
+          <span>Galerie (optionnel, plusieurs fichiers)</span>
+          <input type="file" id="gallery" name="gallery" accept="image/*" multiple>
+        </label>
+        <div class="field">
+          <div class="field__label">Galerie existante (à conserver)</div>
+          <div id="existingGallery" class="existing-gallery"></div>
+        </div>
+        <div class="form-actions">
+          <button class="btn" type="submit" id="submitBtn">Créer</button>
+          <button class="ghost-btn" type="button" id="cancelEditBtn">Annuler</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="panel">
+      <div class="panel__header">
+        <h2>Projets existants</h2>
+        <div class="panel__actions">
+          <button class="ghost-btn" type="button" id="refreshBtn">Rafraîchir</button>
+        </div>
+      </div>
+      <div id="portfolioList" class="portfolio-list"></div>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/quill@1.3.7/dist/quill.min.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.css";
 import { FaLinkedin, FaInstagram, FaCircle } from "react-icons/fa";
-import { socialprofils } from "../../content_option";
+import { socialprofils } from "../../config/siteContent";
 
 const ICON_MAPPING = {
   default: FaCircle,
