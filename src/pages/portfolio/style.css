@@ -67,14 +67,43 @@
     color: var(--secondary-color);
 }
 
-.po_item .content a {
+.po_btn {
     background: var(--bg-color);
     border: solid 1px var(--text-color);
-    padding: 4px 8px;
+    padding: 10px 18px;
     text-align: center;
     font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    color: var(--text-color);
 }
 
-.po_item .content a:hover {
-    text-decoration: none;
+.po_btn:hover {
+    background: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.portfolio-modal {
+    color: var(--text-color);
+    background: var(--bg-color);
+}
+
+.portfolio-modal .modal-header,
+.portfolio-modal .modal-footer {
+    border-color: var(--primary-color);
+}
+
+.modal-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.modal-gallery img {
+    width: 140px;
+    height: 95px;
+    object-fit: cover;
+    border: 1px solid var(--secondary-color);
+    background: var(--bg-color);
 }
