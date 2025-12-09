@@ -1,7 +1,7 @@
 ### Contenu statique
 
 Méta / header / contact : `src/config/siteContent.js`.
-Le portfolio est désormais chargé via l'API backend (plus de `src/content_option.js`).
+Le portfolio est désormais chargé via l'API backend (https://admin.bellimac.com).
 
 ### Backend admin (Node/Express, CommonJS)
 
