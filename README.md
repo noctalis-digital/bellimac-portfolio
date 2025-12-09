@@ -8,7 +8,7 @@ Modify pages content in `src/content_option.js`.
 2. Click on "Run workflow" button
 3. Select the branch to deploy (`main`)
 4. Click on the green button "Run workflow"
-5. Wait for the workflow to finish
+5. Wait for the workflow to finish (1 minute)
 
 ### Local dev setup
 

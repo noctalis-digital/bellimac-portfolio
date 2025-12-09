@@ -20,11 +20,12 @@ const AnimatedRoutes = withRouter(({ location }) => (
       unmountOnExit
     >
       <Routes location={location}>
-        <Route exact path="/" element={<Home />} />
+        <Route exact path="/" element={<Portfolio />} />
         <Route path="/about" element={<About />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/home" element={<Home />} />
         <Route path="/contact" element={<ContactUs />} />
-        <Route path="*" element={<Home />} />
+        <Route path="*" element={<Portfolio />} />
       </Routes>
     </CSSTransition>
   </TransitionGroup>

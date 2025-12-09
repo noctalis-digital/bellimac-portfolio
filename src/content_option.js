@@ -152,7 +152,7 @@ const contactConfig = {
 
 const socialprofils = {
     linkedin: "https://www.linkedin.com/in/bellimac",
-    instagram: "https://www.instagram.com/camille.bellimac",
+    instagram: "https://www.instagram.com/camillebellimac",
 };
 export {
     meta,
