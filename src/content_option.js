@@ -1,7 +1,8 @@
 const logotext = "BELLIMAC";
 const meta = {
-    title: "Bellimac",
-    description: "Je suis Camille Bogdanovitch, vidéaste, photographe, chef électro et directeur de la photographie.",
+    title: "Camille Bogdanovitch / Bellimac",
+    description: "Camille Bogdanovitch (Bellimac), directeur de la photographie, chef électro, vidéaste et photographe basé à Berlin : clips, pubs, documentaires et campagnes sociales avec maîtrise lumière, cadre et machinerie.",
+    keywords: "Camille Bogdanovitch, Bellimac, directeur de la photographie, chef électro, vidéaste, photographe, machino, Berlin, clip, publicité, documentaire, campagne social media, tournage, lumière, étalonnage",
 };
 
 const introdata = {

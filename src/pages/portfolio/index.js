@@ -10,6 +10,8 @@ import { Link } from "react-router-dom";
 
 export const Portfolio = () => {
   const [selectedProject, setSelectedProject] = useState(null);
+  const pageTitle = `Portfolio | ${meta.title}`;
+  const pageDescription = meta.description;
 
   const openProject = (project) => {
     setSelectedProject(project);
@@ -24,8 +26,12 @@ export const Portfolio = () => {
       <section id="portfolio-home" className="home">
         <Helmet>
           <meta charSet="utf-8" />
-          <title> Portfolio | {meta.title} </title>{" "}
-          <meta name="description" content={meta.description} />
+          <title>{pageTitle}</title>
+          <meta name="description" content={pageDescription} />
+          <meta name="keywords" content={meta.keywords} />
+          <meta property="og:title" content={pageTitle} />
+          <meta property="og:description" content={pageDescription} />
+          <meta property="og:type" content="website" />
         </Helmet>
         <Container className="About-header" id="portfolio-section">
           <div className="intro mx-auto mb-5">

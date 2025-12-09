@@ -128,8 +128,12 @@ export const ContactUs = () => {
       <Container>
         <Helmet>
           <meta charSet="utf-8" />
-          <title>Contact | {meta.title}</title>
+          <title>{`Contact | ${meta.title}`}</title>
           <meta name="description" content={meta.description} />
+          <meta name="keywords" content={meta.keywords} />
+          <meta property="og:title" content={`Contact | ${meta.title}`} />
+          <meta property="og:description" content={meta.description} />
+          <meta property="og:type" content="website" />
         </Helmet>
         <Row className="mb-5 mt-3 pt-md-3">
           <Col lg="8">
