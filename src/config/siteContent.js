@@ -1,7 +1,7 @@
 const logotext = "BELLIMAC";
 
 const meta = {
-  title: "Bellimac",
+  title: "Camille Bogdanovitch",
   description: "Bellimac, artiste, cinéaste",
   keywords: "Camille Bogdanovitch, Bellimac, directeur de la photographie, chef électro, vidéaste, photographe, machino, clip, publicité, documentaire, tournage, lumière, étalonnage",
 };
