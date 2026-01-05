@@ -7,7 +7,7 @@ const meta = {
 };
 
 const introdata = {
-  title: "Bellimac",
+  title: "Camille Bogdanovitch",
   animated: {
     first: "Direction de photographie",
     second: "Création par IA",
