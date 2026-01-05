@@ -87,7 +87,7 @@ const contactConfig = {
   YOUR_EMAIL: "camille@bellimac.com",
   YOUR_FONE: "+33 6 23 99 78 73",
   description:
-    "Titulaire d’un BTS audiovisuel option métiers de l’image, j’ai développé mon regard et mon savoir-faire à travers des expériences variées en cinéma, publicité, séries et clips.Fort de ces acquis, j’accompagne mes partenaires dans la mise en image de leurs projets, en accordant une attention particulière à l’esthétique, à la narration et aux contraintes de production.Un film, un clip, une campagne ou un documentaire à mettre en lumière ? Écrivez-moi et préparons le tournage ensemble. Devis personnalisé gratuit.",
+    "Titulaire d’un BTS audiovisuel option métiers de l’image, j’ai développé mon regard et mon savoir-faire à travers des expériences variées en cinéma, publicité, séries et clips. Fort de ces acquis, j’accompagne mes partenaires dans la mise en image de leurs projets, en accordant une attention particulière à l’esthétique, à la narration et aux contraintes de production. Un film, un clip, une campagne ou un documentaire à mettre en lumière ? Écrivez-moi et préparons le tournage ensemble. Devis personnalisé gratuit.",
   YOUR_SERVICE_ID: process.env.REACT_APP_EMAILJS_SERVICE_ID || "service_id",
   YOUR_TEMPLATE_ID: process.env.REACT_APP_EMAILJS_TEMPLATE_ID || "template_id",
   YOUR_USER_ID: process.env.REACT_APP_EMAILJS_PUBLIC_KEY || "user_id",
