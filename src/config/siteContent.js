@@ -1,3 +1,4 @@
+import homeImg from "../assets/images/backstageClip181.jpg";
 const logotext = "BELLIMAC";
 
 const meta = {
@@ -18,7 +19,7 @@ const introdata = {
   description:
     "Photographe d’entreprise et directeur de la photographie, je crée des images pour entreprises, marques et productions : portraits, communication visuelle et direction de l’image sur tournages.",
   your_img_url:
-    "https://images.unsplash.com/photo-1514790193030-c89d266d5a9d",
+    "homeImg",
 };
 
 const dataabout = {
