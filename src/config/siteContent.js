@@ -86,7 +86,6 @@ const socialprofils = {
   instagram: "https://www.instagram.com/camillebellimac",
 };
 
-/* PAGES (structure propre et exploitable par React) */
 const pages = {
   home: {
     title: introdata.title,
@@ -107,12 +106,12 @@ const pages = {
     projects: [
       {
         title: "Portraits corporate - entreprise X",
-        image: "https://images.unsplash.com/photo-1",
+        image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d",
         description: "Série de portraits pour direction et équipe.",
       },
       {
         title: "Reportage interne - société Y",
-        image: "https://images.unsplash.com/photo-2",
+        image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee",
         description: "Reportage en conditions réelles en entreprise.",
       },
     ],
@@ -126,12 +125,12 @@ const pages = {
     projects: [
       {
         title: "Publicité marque X",
-        image: "https://images.unsplash.com/photo-3",
+        image: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4",
         description: "Direction photo pour campagne publicitaire.",
       },
       {
         title: "Clip artistique Y",
-        image: "https://images.unsplash.com/photo-4",
+        image: "https://images.unsplash.com/photo-1526312426976-f4d754fa9bd6",
         description: "Construction lumière et ambiance.",
       },
     ],
@@ -145,7 +144,7 @@ const pages = {
     projects: [
       {
         title: "Plateau publicité X",
-        image: "https://images.unsplash.com/photo-5",
+        image: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
         description: "Installation lumière complète studio.",
       },
     ],
