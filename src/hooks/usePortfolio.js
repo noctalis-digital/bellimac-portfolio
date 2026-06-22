@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { fetchPortfolio } from "../api/portfolioAPI";
+import { fetchPortfolio } from "../services/portfolioAPI";
 
 export const usePortfolio = () => {
   const [items, setItems] = useState([]);
