@@ -2,17 +2,38 @@ import "./style.css";
 
 export default function Photo() {
   return (
-    <div className="page">
-      <div className="hero">
-        <h1>Photographie d’entreprise</h1>
-        <p>Portraits, équipes, événements et communication visuelle.</p>
+    <section className="intro_sec">
+      
+      <div className="text">
+        <div className="intro">
+          
+          <h1>Photographie d’entreprise</h1>
+          
+          <p>
+            Portraits corporate, équipes, événements et communication visuelle pour entreprises et marques.
+          </p>
+
+          <div className="feature">
+            <p>Portraits professionnels</p>
+            <p>Événementiel entreprise</p>
+            <p>Communication visuelle</p>
+          </div>
+
+          <div className="ac_btn">
+            <a href="/contact">Demander un devis</a>
+          </div>
+
+        </div>
       </div>
 
-      <div className="gallery">
-        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d" alt="photo1" />
-        <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216" alt="photo2" />
-        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df" alt="photo3" />
-      </div>
-    </div>
+      <div
+        className="h_bg-image"
+        style={{
+          backgroundImage:
+            "url(https://images.unsplash.com/photo-1521737604893-d14cc237f11d)"
+        }}
+      ></div>
+
+    </section>
   );
 }
