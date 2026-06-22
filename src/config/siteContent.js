@@ -18,8 +18,7 @@ const introdata = {
   },
   description:
     "Photographe d’entreprise et directeur de la photographie, je crée des images pour entreprises, marques et productions : portraits, communication visuelle et direction de l’image sur tournages.",
-  your_img_url:
-    "homeImg",
+  your_img_url: homeImg,
 };
 
 const dataabout = {
