@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { logotext, socialprofils } from "../config/siteContent";
 
 const Headermain = () => {
-  const [isActive, setActive] = useState("false");
+  const [isActive, setActive] = useState(false);
 
   const handleToggle = () => {
     setActive(!isActive);
