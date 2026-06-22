@@ -1,9 +1,12 @@
 import "./style.css";
-import { pages } from "../../config/siteContent";
 import { Link } from "react-router-dom";
+import usePortfolio from "../../hooks/usePortfolio";
+import ProjectCard from "../../components/ProjectCard";
 
 export default function Photo() {
-  const content = pages.photo;
+  const { items, loading } = usePortfolio();
+
+  const photos = items.filter((p) => p.category === "photo");
 
   return (
     <section className="intro_sec">
@@ -11,21 +14,29 @@ export default function Photo() {
       <div className="text">
         <div className="intro">
 
-          <h1>{content.title}</h1>
+          <h1>Photographie d’entreprise</h1>
 
-          <p>{content.description}</p>
+          <p>
+            Portraits corporate, équipes, dirigeants et communication visuelle pour entreprises et marques.
+          </p>
 
           <h3>Prestations</h3>
-          {content.services.map((s, i) => (
-            <p key={i}>{s}</p>
-          ))}
+          <p>Portraits corporate</p>
+          <p>Reportage entreprise</p>
+          <p>Communication visuelle</p>
+          <p>Événementiel</p>
 
           <h3>Projets</h3>
-          {content.projects.map((p, i) => (
-            <div key={i}>
-              <p><b>{p.title}</b></p>
-              <p>{p.description}</p>
-            </div>
+
+          {loading && <p>Chargement des projets...</p>}
+
+          {!loading && photos.map((p) => (
+            <ProjectCard
+              key={p._id}
+              title={p.title}
+              description={p.description}
+              image={p.image}
+            />
           ))}
 
           <div className="ac_btn">
@@ -35,12 +46,7 @@ export default function Photo() {
         </div>
       </div>
 
-      <div
-        className="h_bg-image"
-        style={{
-          backgroundImage: `url(${content.projects?.[0]?.image || ""})`
-        }}
-      />
+      <div className="h_bg-image" />
 
     </section>
   );
