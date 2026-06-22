@@ -1,13 +1,15 @@
 import "./style.css";
+import { usePortfolio } from "../../hooks/usePortfolio";
+import { filterByCategory } from "../../utils/filterByCategory";
 import { Link } from "react-router-dom";
-import usePortfolio from "../../hooks/usePortfolio";
-import ProjectCard from "../../components/ProjectCard";
-import { getPhotos } from "../../utils/portfolioSelectors";
 
 export default function Photo() {
-  const { items, loading } = usePortfolio();
+  const { items, loading, error } = usePortfolio();
 
-  const photos = getPhotos(items);
+  const photos = filterByCategory(items, "photo");
+
+  if (loading) return <section className="intro_sec"><p>Chargement...</p></section>;
+  if (error) return <section className="intro_sec"><p>Erreur : {error}</p></section>;
 
   return (
     <section className="intro_sec">
@@ -18,20 +20,23 @@ export default function Photo() {
           <h1>Photographie d’entreprise</h1>
 
           <p>
-            Portraits corporate, équipes, dirigeants et communication visuelle pour entreprises et marques.
+            Portraits corporate, équipes, événements et communication visuelle.
           </p>
+
+          <h3>Prestations</h3>
+          <p>Portraits professionnels</p>
+          <p>Événementiel entreprise</p>
+          <p>Communication visuelle</p>
 
           <h3>Projets</h3>
 
-          {loading && <p>Chargement...</p>}
+          {photos.length === 0 && <p>Aucun projet</p>}
 
           {photos.map((p) => (
-            <ProjectCard
-              key={p._id}
-              title={p.title}
-              description={p.description}
-              image={p.image}
-            />
+            <div key={p.id}>
+              <b>{p.title}</b>
+              <p>{p.description}</p>
+            </div>
           ))}
 
           <div className="ac_btn">
@@ -40,6 +45,13 @@ export default function Photo() {
 
         </div>
       </div>
+
+      <div
+        className="h_bg-image"
+        style={{
+          backgroundImage: `url(${photos?.[0]?.cover || ""})`
+        }}
+      />
 
     </section>
   );
