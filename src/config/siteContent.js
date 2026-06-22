@@ -1,85 +1,85 @@
 const logotext = "BELLIMAC";
 
 const meta = {
-  title: "Camille Bogdanovitch",
-  description: "Bellimac, artiste, cinéaste",
-  keywords: "Camille Bogdanovitch, Bellimac, directeur de la photographie, chef électro, vidéaste, photographe, machino, clip, publicité, documentaire, tournage, lumière, étalonnage",
+  title: "Photographie d’entreprise & Direction photo | Bellimac",
+  description: "Camille Bogdanovitch, photographe d’entreprise et directeur de la photographie. Portrait corporate, événementiel, communication visuelle et production image pour entreprises et marques.",
+  keywords: "directeur de la photographie, DOP, lighting, chef électro, machiniste, caméra, lumière, film, publicité, clip, étalonnage, photographe entreprise, photographie corporate, portrait professionnel, événementiel entreprise, directeur de la photographie, vidéo corporate, image marque, lighting",
 };
 
 const introdata = {
-  title: "Camille Bogdanovitch",
+  title: "Photographie d’entreprise & direction de l’image",
   animated: {
-    first: "Direction de photographie",
-    second: "Création par IA",
-    third: "Je dirige des tournages agiles",
+    first: "Portraits corporate & communication d’entreprise",
+    second: "Direction de la photographie pour publicité et marque",
+    third: "Lumière et image pour productions audiovisuelles",
   },
   description:
-    "Cinéaste et directeur de la photographie, j'oriente la lumière, le cadre et la machinerie pour donner du rythme et du sens à chaque histoire.",
+    "Photographe d’entreprise et directeur de la photographie, je crée des images pour entreprises, marques et productions : portraits, communication visuelle et direction de l’image sur tournages.",
   your_img_url: "https://images.unsplash.com/photo-1514790193030-c89d266d5a9d",
 };
 
 const dataabout = {
-  title: "Un aperçu de mon parcours",
+  title: "Photographie & direction de l’image",
   aboutme:
-    "Chef électro, machiniste, directeur de la photographie et vidéaste : j'ai l'habitude de passer de la prépa au plateau pour garantir une image cohérente et inspirante. J'accorde autant d'importance à la technique qu'au récit.",
+    "Je travaille entre photographie d’entreprise et direction de la photographie pour des productions audiovisuelles. J’interviens sur des projets corporate, publicitaires et créatifs en apportant une maîtrise de la lumière, du cadre et de l’exécution technique.",
 };
 
 const worktimeline = [
   {
+    jobtitle: "Photographe d’entreprise",
+    where: "Corporate & communication",
+    date: "2023 - aujourd’hui",
+  },
+  {
     jobtitle: "Directeur de la photographie",
-    where: "YAdfi",
-    date: "2020",
+    where: "Publicité / clip / fiction",
+    date: "2020 - aujourd’hui",
   },
   {
-    jobtitle: "Chef électro",
-    where: "Jamalya",
-    date: "2019",
-  },
-  {
-    jobtitle: "Machiniste / cadreur",
-    where: "ALquds",
+    jobtitle: "Chef électro / technicien lumière",
+    where: "Plateaux audiovisuels",
     date: "2019",
   },
 ];
 
 const skills = [
   {
-    name: "Direction de la photographie",
-    value: 90,
+    name: "Photographie d’entreprise",
+    value: 95,
   },
   {
-    name: "Éclairage (chef électro)",
+    name: "Portrait corporate",
+    value: 92,
+  },
+  {
+    name: "Direction de la photographie",
     value: 88,
   },
   {
-    name: "Machinerie / grip",
+    name: "Lighting & éclairage",
+    value: 90,
+  },
+  {
+    name: "Production plateau",
     value: 85,
-  },
-  {
-    name: "Montage & étalonnage",
-    value: 80,
-  },
-  {
-    name: "Prise de vues (photo/vidéo)",
-    value: 92,
   },
 ];
 
 const services = [
   {
-    title: "Direction photo",
+    title: "Photographie d’entreprise",
     description:
-      "Construction du cadre, de la lumière et du découpage pour servir le récit.",
+      "Portraits corporate, équipes, dirigeants et communication visuelle pour entreprises et marques.",
   },
   {
-    title: "Tournage & machinerie",
+    title: "Direction de la photographie",
     description:
-      "Chef électro et machino pour des plateaux efficaces, fluides et sécurisés.",
+      "Création de l’image pour publicités, clips et contenus de marque : lumière, cadre et intention visuelle.",
   },
   {
-    title: "Montage & étalo",
+    title: "Technique plateau & lumière",
     description:
-      "Assemblage, rythme et colorimétrie pour livrer des films prêts à diffuser.",
+      "Chef électro et machinerie pour assurer la mise en place lumière et la fluidité des tournages.",
   },
 ];
 
@@ -87,7 +87,7 @@ const contactConfig = {
   YOUR_EMAIL: "camille@bellimac.com",
   YOUR_FONE: "+33 6 23 99 78 73",
   description:
-    "Titulaire d’un BTS audiovisuel option métiers de l’image, j’ai développé mon regard et mon savoir-faire à travers des expériences variées en cinéma, publicité, séries et clips. Fort de ces acquis, j’accompagne mes partenaires dans la mise en image de leurs projets, en accordant une attention particulière à l’esthétique, à la narration et aux contraintes de production. Un film, un clip, une campagne ou un documentaire à mettre en lumière ? Écrivez-moi et préparons le tournage ensemble. Devis personnalisé gratuit.",
+    "Disponible pour photographie d’entreprise, direction de la photographie et productions audiovisuelles. Réponse rapide pour projets et devis.",
   YOUR_SERVICE_ID: process.env.REACT_APP_EMAILJS_SERVICE_ID || "service_id",
   YOUR_TEMPLATE_ID: process.env.REACT_APP_EMAILJS_TEMPLATE_ID || "template_id",
   YOUR_USER_ID: process.env.REACT_APP_EMAILJS_PUBLIC_KEY || "user_id",
