@@ -1,37 +1,35 @@
 import "./style.css";
+import { pages } from "../../config/siteContent";
+import { Link } from "react-router-dom";
 
 export default function Photo() {
+  const content = pages.photo;
+
   return (
     <section className="intro_sec">
 
       <div className="text">
         <div className="intro">
 
-          <h1>Photographie d’entreprise</h1>
+          <h1>{content.title}</h1>
 
-          <p>
-            Je crée des images professionnelles pour entreprises et marques :
-            portraits, équipes, événements et communication visuelle.
-            Objectif : des visuels cohérents, exploitables en communication et marketing.
-          </p>
+          <p>{content.description}</p>
 
-          <div className="feature">
-            <h3>Prestations</h3>
-            <p>Portraits corporate (dirigeants, équipes)</p>
-            <p>Reportage en entreprise</p>
-            <p>Communication visuelle / branding</p>
-            <p>Événementiel professionnel</p>
-          </div>
+          <h3>Prestations</h3>
+          {content.services.map((s, i) => (
+            <p key={i}>{s}</p>
+          ))}
 
-          <div className="feature">
-            <h3>Approche</h3>
-            <p>Direction artistique sur place</p>
-            <p>Adaptation lumière (studio / naturel)</p>
-            <p>Livraison optimisée web & print</p>
-          </div>
+          <h3>Projets</h3>
+          {content.projects.map((p, i) => (
+            <div key={i}>
+              <p><b>{p.title}</b></p>
+              <p>{p.description}</p>
+            </div>
+          ))}
 
           <div className="ac_btn">
-            <a href="/contact">Demander un devis</a>
+            <Link to="/contact">Demander un devis</Link>
           </div>
 
         </div>
@@ -40,10 +38,9 @@ export default function Photo() {
       <div
         className="h_bg-image"
         style={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1521737604893-d14cc237f11d)"
+          backgroundImage: `url(${content.projects?.[0]?.image || ""})`
         }}
-      ></div>
+      />
 
     </section>
   );
