@@ -21,6 +21,7 @@
   const coverInput = document.getElementById("cover");
   const galleryInput = document.getElementById("gallery");
   const detailsInput = document.getElementById("detailsHtml");
+  const categoryInput = document.getElementById("category");
 
   let quill;
   let portfolioItems = [];
