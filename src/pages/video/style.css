@@ -1,1 +1,11 @@
+.feature p {
+  margin: 5px 0;
+  color: #aaa;
+}
 
+.feature h3 {
+  margin-bottom: 10px;
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: var(--primary-color);
+}
