@@ -2,11 +2,12 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import usePortfolio from "../../hooks/usePortfolio";
 import ProjectCard from "../../components/ProjectCard";
+import { getPhotos } from "../../utils/portfolioSelectors";
 
 export default function Photo() {
   const { items, loading } = usePortfolio();
 
-  const photos = items.filter((p) => p.category === "photo");
+  const photos = getPhotos(items);
 
   return (
     <section className="intro_sec">
@@ -20,17 +21,11 @@ export default function Photo() {
             Portraits corporate, équipes, dirigeants et communication visuelle pour entreprises et marques.
           </p>
 
-          <h3>Prestations</h3>
-          <p>Portraits corporate</p>
-          <p>Reportage entreprise</p>
-          <p>Communication visuelle</p>
-          <p>Événementiel</p>
-
           <h3>Projets</h3>
 
-          {loading && <p>Chargement des projets...</p>}
+          {loading && <p>Chargement...</p>}
 
-          {!loading && photos.map((p) => (
+          {photos.map((p) => (
             <ProjectCard
               key={p._id}
               title={p.title}
@@ -45,8 +40,6 @@ export default function Photo() {
 
         </div>
       </div>
-
-      <div className="h_bg-image" />
 
     </section>
   );
