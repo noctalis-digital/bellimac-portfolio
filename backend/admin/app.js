@@ -160,6 +160,7 @@
     formData.append("description", descriptionInput.value.trim());
     formData.append("link", linkInput.value.trim());
     formData.append("detailsHtml", detailsInput.value);
+    formData.append("category", categoryInput.value);
 
     if (keepGallery.length) {
       formData.append("existingGallery", JSON.stringify(keepGallery));
