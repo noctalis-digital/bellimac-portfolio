@@ -1,5 +1,24 @@
 import "./style.css";
 
+// futur remplacement facile par API admin.bellimac.com
+const videoContent = {
+  title: "Direction de la photographie",
+  description:
+    "Je conçois l’image pour des productions audiovisuelles : publicité, clips et contenus de marque. Je travaille la lumière, le cadre et l’intention narrative sur chaque projet.",
+  domains: [
+    "Publicité & brand content",
+    "Clips musicaux",
+    "Films corporate / institutionnels"
+  ],
+  role: [
+    "Direction de la photographie",
+    "Construction lumière & ambiance",
+    "Coordination image sur plateau"
+  ],
+  image:
+    "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4"
+};
+
 export default function Video() {
   return (
     <section className="intro_sec">
@@ -7,17 +26,22 @@ export default function Video() {
       <div className="text">
         <div className="intro">
 
-          <h1>Direction de la photographie</h1>
+          <h1>{videoContent.title}</h1>
 
-          <p>
-            Création d’images pour publicité, clip et contenus de marque. Je construis la lumière, le cadre et l’intention visuelle sur chaque projet.
-          </p>
+          <p>{videoContent.description}</p>
 
           <div className="feature">
             <h3>Domaines</h3>
-            <p>Publicité</p>
-            <p>Clip musical</p>
-            <p>Brand content</p>
+            {videoContent.domains.map((item, i) => (
+              <p key={i}>{item}</p>
+            ))}
+          </div>
+
+          <div className="feature">
+            <h3>Rôle</h3>
+            {videoContent.role.map((item, i) => (
+              <p key={i}>{item}</p>
+            ))}
           </div>
 
           <div className="ac_btn">
@@ -30,10 +54,9 @@ export default function Video() {
       <div
         className="h_bg-image"
         style={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1492691527719-9d1e07e534b4)"
+          backgroundImage: `url(${videoContent.image})`
         }}
-      ></div>
+      />
 
     </section>
   );
