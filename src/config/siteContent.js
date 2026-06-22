@@ -2,8 +2,10 @@ const logotext = "BELLIMAC";
 
 const meta = {
   title: "Photographie d’entreprise & Direction photo | Bellimac",
-  description: "Camille Bogdanovitch, photographe d’entreprise et directeur de la photographie. Portrait corporate, événementiel, communication visuelle et production image pour entreprises et marques.",
-  keywords: "directeur de la photographie, DOP, lighting, chef électro, machiniste, caméra, lumière, film, publicité, clip, étalonnage, photographe entreprise, photographie corporate, portrait professionnel, événementiel entreprise, directeur de la photographie, vidéo corporate, image marque, lighting",
+  description:
+    "Camille Bogdanovitch, photographe d’entreprise et directeur de la photographie. Portrait corporate, événementiel, communication visuelle et production image pour entreprises et marques.",
+  keywords:
+    "directeur de la photographie, DOP, lighting, chef électro, machiniste, caméra, lumière, film, publicité, clip, étalonnage, photographe entreprise, photographie corporate, portrait professionnel, événementiel entreprise, directeur de la photographie, vidéo corporate, image marque, lighting",
 };
 
 const introdata = {
@@ -15,7 +17,8 @@ const introdata = {
   },
   description:
     "Photographe d’entreprise et directeur de la photographie, je crée des images pour entreprises, marques et productions : portraits, communication visuelle et direction de l’image sur tournages.",
-  your_img_url: "https://images.unsplash.com/photo-1514790193030-c89d266d5a9d",
+  your_img_url:
+    "https://images.unsplash.com/photo-1514790193030-c89d266d5a9d",
 };
 
 const dataabout = {
@@ -43,26 +46,11 @@ const worktimeline = [
 ];
 
 const skills = [
-  {
-    name: "Photographie d’entreprise",
-    value: 95,
-  },
-  {
-    name: "Portrait corporate",
-    value: 92,
-  },
-  {
-    name: "Direction de la photographie",
-    value: 88,
-  },
-  {
-    name: "Lighting & éclairage",
-    value: 90,
-  },
-  {
-    name: "Production plateau",
-    value: 85,
-  },
+  { name: "Photographie d’entreprise", value: 95 },
+  { name: "Portrait corporate", value: 92 },
+  { name: "Direction de la photographie", value: 88 },
+  { name: "Lighting & éclairage", value: 90 },
+  { name: "Production plateau", value: 85 },
 ];
 
 const services = [
@@ -98,6 +86,36 @@ const socialprofils = {
   instagram: "https://www.instagram.com/camillebellimac",
 };
 
+/* IMPORTANT : pages doit être à l'extérieur des autres objets */
+const pages = {
+  home: {
+    title: introdata.title,
+    description: introdata.description,
+    image: introdata.your_img_url,
+  },
+
+  photo: {
+    title: "Photographie d’entreprise",
+    description:
+      "Portraits corporate, équipes, dirigeants et communication visuelle pour entreprises et marques.",
+    services: services[0],
+  },
+
+  video: {
+    title: "Direction de la photographie",
+    description:
+      "Création de l’image pour publicité, clip et contenu de marque.",
+    services: services[1],
+  },
+
+  lumiere: {
+    title: "Technique plateau & lumière",
+    description:
+      "Chef électro et machinerie pour tournages cinéma et publicité.",
+    services: services[2],
+  },
+};
+
 export {
   meta,
   dataabout,
@@ -108,4 +126,5 @@ export {
   contactConfig,
   socialprofils,
   logotext,
+  pages,
 };
