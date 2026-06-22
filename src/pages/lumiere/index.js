@@ -1,39 +1,49 @@
 import "./style.css";
+import { pages } from "../../config/siteContent";
+import { Link } from "react-router-dom";
 
 export default function Lumiere() {
+  const content = pages.lumiere;
+
   return (
     <section className="intro_sec">
 
+      {/* TEXTE */}
       <div className="text">
         <div className="intro">
 
-          <h1>Lumière & plateau</h1>
+          <h1>{content.title}</h1>
 
-          <p>
-            Chef électro et machiniste sur tournages cinéma, publicité et production audiovisuelle. Mise en place lumière et exécution technique sur plateau.
-          </p>
+          <p>{content.description}</p>
 
           <div className="feature">
             <h3>Compétences</h3>
-            <p>Lighting design</p>
+            {content.skills.map((skill, i) => (
+              <p key={i}>{skill}</p>
+            ))}
+          </div>
+
+          <div className="feature">
+            <h3>Rôle sur plateau</h3>
             <p>Chef électro</p>
-            <p>Machinerie / grip</p>
+            <p>Machiniste / grip</p>
+            <p>Installation lumière cinéma & publicité</p>
           </div>
 
           <div className="ac_btn">
-            <a href="/contact">Collaborer</a>
+            <Link to="/contact">Discuter d’un projet</Link>
           </div>
 
         </div>
       </div>
 
+      {/* IMAGE */}
       <div
         className="h_bg-image"
         style={{
-          backgroundImage:
-            "url(https://images.unsplash.com/photo-1504384308090-c894fdcc538d)"
+          backgroundImage: `url(${content.image})`
         }}
-      ></div>
+      />
 
     </section>
   );
