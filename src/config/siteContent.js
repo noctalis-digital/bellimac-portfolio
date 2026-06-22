@@ -95,11 +95,25 @@ const pages = {
   },
 
   photo: {
-    title: "Photographie d’entreprise",
-    description:
-      "Portraits corporate, équipes, dirigeants et communication visuelle pour entreprises et marques.",
-    services: services[0],
-  },
+  title: "Photographie d’entreprise",
+  description:
+    "Portraits corporate, équipes, dirigeants et communication visuelle pour entreprises et marques.",
+  services: [
+    "Portraits corporate",
+    "Reportage entreprise",
+    "Communication visuelle",
+    "Événementiel"
+  ],
+  approach: [
+    "Direction artistique sur place",
+    "Gestion lumière",
+    "Livraison web & print"
+  ],
+  images: [
+    "https://images.unsplash.com/xxx1",
+    "https://images.unsplash.com/xxx2"
+  ]
+}
 
   video: {
     title: "Direction de la photographie",
@@ -109,11 +123,17 @@ const pages = {
   },
 
   lumiere: {
-    title: "Technique plateau & lumière",
-    description:
-      "Chef électro et machinerie pour tournages cinéma et publicité.",
-    services: services[2],
-  },
+  title: "Technique plateau & lumière",
+  description:
+    "Chef électro et machiniste sur tournages cinéma et publicité.",
+  skills: [
+    "Lighting design",
+    "Chef électro",
+    "Machinerie / grip"
+  ],
+  image:
+    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d"
+}
 };
 
 export {
