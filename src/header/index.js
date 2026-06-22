@@ -32,13 +32,38 @@ const Headermain = () => {
             <div className="menu__wrapper">
               <div className="menu__container p-3">
                 <ul className="the_menu">
-                  <li className="menu_item ">
-                  <Link  onClick={handleToggle} to="/" className="my-3"> Portfolio</Link>
-                  </li>
-                  <li className="menu_item">
-                  <Link onClick={handleToggle} to="/contact" className="my-3"> Contact</Link>
-                  </li>
-                </ul>
+
+  <li className="menu_item">
+    <Link onClick={handleToggle} to="/" className="my-3">
+      Home
+    </Link>
+  </li>
+
+  <li className="menu_item">
+    <Link onClick={handleToggle} to="/photo" className="my-3">
+      Photo
+    </Link>
+  </li>
+
+  <li className="menu_item">
+    <Link onClick={handleToggle} to="/video" className="my-3">
+      Vidéo
+    </Link>
+  </li>
+
+  <li className="menu_item">
+    <Link onClick={handleToggle} to="/lumiere" className="my-3">
+      Lumière
+    </Link>
+  </li>
+
+  <li className="menu_item">
+    <Link onClick={handleToggle} to="/contact" className="my-3">
+      Contact
+    </Link>
+  </li>
+
+</ul>
               </div>
             </div>
           </div>
