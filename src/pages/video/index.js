@@ -1,62 +1,57 @@
 import "./style.css";
-
-// futur remplacement facile par API admin.bellimac.com
-const videoContent = {
-  title: "Direction de la photographie",
-  description:
-    "Je conçois l’image pour des productions audiovisuelles : publicité, clips et contenus de marque. Je travaille la lumière, le cadre et l’intention narrative sur chaque projet.",
-  domains: [
-    "Publicité & brand content",
-    "Clips musicaux",
-    "Films corporate / institutionnels"
-  ],
-  role: [
-    "Direction de la photographie",
-    "Construction lumière & ambiance",
-    "Coordination image sur plateau"
-  ],
-  image:
-    "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4"
-};
+import { Link } from "react-router-dom";
+import usePortfolio from "../../hooks/usePortfolio";
+import ProjectCard from "../../components/ProjectCard";
 
 export default function Video() {
+  const { items, loading } = usePortfolio();
+
+  const videos = items.filter((p) => p.category === "video");
+
   return (
     <section className="intro_sec">
 
       <div className="text">
         <div className="intro">
 
-          <h1>{videoContent.title}</h1>
+          <h1>Direction de la photographie</h1>
 
-          <p>{videoContent.description}</p>
+          <p>
+            Création d’images pour publicité, clip et contenus de marque. Je construis la lumière,
+            le cadre et l’intention visuelle sur chaque projet.
+          </p>
 
-          <div className="feature">
-            <h3>Domaines</h3>
-            {videoContent.domains.map((item, i) => (
-              <p key={i}>{item}</p>
+          <h3>Domaines</h3>
+          <p>Publicité</p>
+          <p>Clip musical</p>
+          <p>Brand content</p>
+
+          <h3>Projets</h3>
+
+          {loading && <p>Chargement des projets...</p>}
+
+          {!loading && videos.length === 0 && (
+            <p>Aucun projet pour le moment.</p>
+          )}
+
+          {!loading &&
+            videos.map((p) => (
+              <ProjectCard
+                key={p._id}
+                title={p.title}
+                description={p.description}
+                image={p.image}
+              />
             ))}
-          </div>
-
-          <div className="feature">
-            <h3>Rôle</h3>
-            {videoContent.role.map((item, i) => (
-              <p key={i}>{item}</p>
-            ))}
-          </div>
 
           <div className="ac_btn">
-            <a href="/contact">Travailler ensemble</a>
+            <Link to="/contact">Travailler ensemble</Link>
           </div>
 
         </div>
       </div>
 
-      <div
-        className="h_bg-image"
-        style={{
-          backgroundImage: `url(${videoContent.image})`
-        }}
-      />
+      <div className="h_bg-image" />
 
     </section>
   );
