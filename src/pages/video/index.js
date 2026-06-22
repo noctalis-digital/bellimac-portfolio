@@ -2,11 +2,12 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import usePortfolio from "../../hooks/usePortfolio";
 import ProjectCard from "../../components/ProjectCard";
+import { getVideos } from "../../utils/portfolioSelectors";
 
 export default function Video() {
   const { items, loading } = usePortfolio();
 
-  const videos = items.filter((p) => p.category === "video");
+  const videos = getVideos(items);
 
   return (
     <section className="intro_sec">
@@ -17,32 +18,26 @@ export default function Video() {
           <h1>Direction de la photographie</h1>
 
           <p>
-            Création d’images pour publicité, clip et contenus de marque. Je construis la lumière,
-            le cadre et l’intention visuelle sur chaque projet.
+            Création d’images pour publicité, clip et contenus de marque.
+            Construction de la lumière, du cadre et de l’intention visuelle.
           </p>
-
-          <h3>Domaines</h3>
-          <p>Publicité</p>
-          <p>Clip musical</p>
-          <p>Brand content</p>
 
           <h3>Projets</h3>
 
-          {loading && <p>Chargement des projets...</p>}
+          {loading && <p>Chargement...</p>}
 
           {!loading && videos.length === 0 && (
             <p>Aucun projet pour le moment.</p>
           )}
 
-          {!loading &&
-            videos.map((p) => (
-              <ProjectCard
-                key={p._id}
-                title={p.title}
-                description={p.description}
-                image={p.image}
-              />
-            ))}
+          {videos.map((p) => (
+            <ProjectCard
+              key={p._id}
+              title={p.title}
+              description={p.description}
+              image={p.image}
+            />
+          ))}
 
           <div className="ac_btn">
             <Link to="/contact">Travailler ensemble</Link>
@@ -50,8 +45,6 @@ export default function Video() {
 
         </div>
       </div>
-
-      <div className="h_bg-image" />
 
     </section>
   );
