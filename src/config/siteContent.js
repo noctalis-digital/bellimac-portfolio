@@ -91,49 +91,71 @@ const pages = {
   home: {
     title: introdata.title,
     description: introdata.description,
-    image: introdata.your_img_url,
+    image: introdata.your_img_url
   },
 
   photo: {
-  title: "Photographie d’entreprise",
-  description:
-    "Portraits corporate, équipes, dirigeants et communication visuelle pour entreprises et marques.",
-  services: [
-    "Portraits corporate",
-    "Reportage entreprise",
-    "Communication visuelle",
-    "Événementiel"
-  ],
-  approach: [
-    "Direction artistique sur place",
-    "Gestion lumière",
-    "Livraison web & print"
-  ],
-  images: [
-    "https://images.unsplash.com/xxx1",
-    "https://images.unsplash.com/xxx2"
-  ]
-}
+    title: "Photographie d’entreprise",
+    description:
+      "Portraits corporate, équipes, dirigeants et communication visuelle pour entreprises et marques.",
+    services: [
+      "Portraits corporate",
+      "Reportage entreprise",
+      "Communication visuelle",
+      "Événementiel"
+    ],
+    projects: [
+      {
+        title: "Portraits corporate - entreprise X",
+        image: "https://images.unsplash.com/photo-1",
+        description: "Série de portraits pour direction et équipe."
+      },
+      {
+        title: "Reportage interne - société Y",
+        image: "https://images.unsplash.com/photo-2",
+        description: "Reportage en conditions réelles en entreprise."
+      }
+    ]
+  },
 
   video: {
     title: "Direction de la photographie",
     description:
       "Création de l’image pour publicité, clip et contenu de marque.",
-    services: services[1],
+    domains: [
+      "Publicité",
+      "Clips musicaux",
+      "Films corporate"
+    ],
+    projects: [
+      {
+        title: "Publicité marque X",
+        image: "https://images.unsplash.com/photo-3",
+        description: "Direction photo pour campagne publicitaire."
+      },
+      {
+        title: "Clip artistique Y",
+        image: "https://images.unsplash.com/photo-4",
+        description: "Construction lumière et ambiance."
+      }
+    ]
   },
 
   lumiere: {
-  title: "Technique plateau & lumière",
-  description:
-    "Chef électro et machiniste sur tournages cinéma et publicité.",
-  skills: [
-    "Lighting design",
-    "Chef électro",
-    "Machinerie / grip"
-  ],
-  image:
-    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d"
-}
+    title: "Technique plateau & lumière",
+    description:
+      "Chef électro et machiniste sur tournages cinéma et publicité.",
+    skills: [
+      "Lighting design",
+      "Chef électro",
+      "Machinerie"
+    ],
+    projects: [
+      {
+        title: "Plateau publicité X",
+        image: "https://images.unsplash.com/photo-5",
+        description: "Installation lumière complète studio."
+      }
 };
 
 export {
