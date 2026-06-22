@@ -1,13 +1,15 @@
 import "./style.css";
+import { usePortfolio } from "../../hooks/usePortfolio";
+import { filterByCategory } from "../../utils/filterByCategory";
 import { Link } from "react-router-dom";
-import usePortfolio from "../../hooks/usePortfolio";
-import ProjectCard from "../../components/ProjectCard";
-import { getVideos } from "../../utils/portfolioSelectors";
 
 export default function Video() {
-  const { items, loading } = usePortfolio();
+  const { items, loading, error } = usePortfolio();
 
-  const videos = getVideos(items);
+  const videos = filterByCategory(items, "video");
+
+  if (loading) return <section className="intro_sec"><p>Chargement...</p></section>;
+  if (error) return <section className="intro_sec"><p>Erreur : {error}</p></section>;
 
   return (
     <section className="intro_sec">
@@ -18,25 +20,23 @@ export default function Video() {
           <h1>Direction de la photographie</h1>
 
           <p>
-            Création d’images pour publicité, clip et contenus de marque.
-            Construction de la lumière, du cadre et de l’intention visuelle.
+            Création d’image pour publicité, clip et contenus de marque.
           </p>
+
+          <h3>Domaines</h3>
+          <p>Publicité</p>
+          <p>Clip musical</p>
+          <p>Brand content</p>
 
           <h3>Projets</h3>
 
-          {loading && <p>Chargement...</p>}
-
-          {!loading && videos.length === 0 && (
-            <p>Aucun projet pour le moment.</p>
-          )}
+          {videos.length === 0 && <p>Aucun projet</p>}
 
           {videos.map((p) => (
-            <ProjectCard
-              key={p._id}
-              title={p.title}
-              description={p.description}
-              image={p.image}
-            />
+            <div key={p.id}>
+              <b>{p.title}</b>
+              <p>{p.description}</p>
+            </div>
           ))}
 
           <div className="ac_btn">
@@ -45,6 +45,13 @@ export default function Video() {
 
         </div>
       </div>
+
+      <div
+        className="h_bg-image"
+        style={{
+          backgroundImage: `url(${videos?.[0]?.cover || ""})`
+        }}
+      />
 
     </section>
   );
