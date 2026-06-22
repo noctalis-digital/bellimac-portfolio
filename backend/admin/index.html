@@ -18,6 +18,8 @@
   </header>
 
   <main class="layout">
+
+    <!-- AUTH -->
     <section class="panel">
       <div class="panel__header">
         <h2>Authentification</h2>
@@ -33,52 +35,83 @@
       </form>
     </section>
 
+    <!-- FORM -->
     <section class="panel">
       <div class="panel__header">
         <h2 id="formTitle">Créer un projet</h2>
         <div class="panel__actions">
-          <button class="ghost-btn" type="button" id="resetFormBtn" aria-label="Réinitialiser le formulaire">Réinitialiser</button>
+          <button class="ghost-btn" type="button" id="resetFormBtn">Réinitialiser</button>
         </div>
       </div>
+
       <form id="projectForm" class="form-grid" enctype="multipart/form-data">
+
         <input type="hidden" id="projectId" name="projectId">
+
+        <!-- TITLE -->
         <label class="field">
           <span>Titre *</span>
           <input type="text" id="title" name="title" required>
         </label>
+
+        <!-- DESCRIPTION -->
         <label class="field">
           <span>Description courte *</span>
           <textarea id="description" name="description" rows="2" required></textarea>
         </label>
+
+        <!-- CATEGORY (AJOUT IMPORTANT) -->
+        <label class="field">
+          <span>Catégorie *</span>
+          <select id="category" name="category" required>
+            <option value="photo">Photographie d’entreprise</option>
+            <option value="video">Direction de la photographie</option>
+            <option value="light">Lumière / plateau</option>
+          </select>
+        </label>
+
+        <!-- LINK -->
         <label class="field">
           <span>Lien externe (optionnel)</span>
           <input type="url" id="link" name="link" placeholder="https://...">
         </label>
+
+        <!-- DETAILS -->
         <div class="field">
           <div class="field__label">Texte détaillé (formatable)</div>
           <div id="detailsEditor" class="editor"></div>
           <input type="hidden" id="detailsHtml" name="detailsHtml">
         </div>
+
+        <!-- COVER -->
         <label class="field">
           <span>Image de couverture *</span>
           <input type="file" id="cover" name="cover" accept="image/*" required>
           <p class="hint">PNG / JPG / WEBP, 15 Mo max.</p>
         </label>
+
+        <!-- GALLERY -->
         <label class="field">
-          <span>Galerie (optionnel, plusieurs fichiers)</span>
+          <span>Galerie (optionnel)</span>
           <input type="file" id="gallery" name="gallery" accept="image/*" multiple>
         </label>
+
+        <!-- EXISTING -->
         <div class="field">
           <div class="field__label">Galerie existante (à conserver)</div>
           <div id="existingGallery" class="existing-gallery"></div>
         </div>
+
+        <!-- ACTIONS -->
         <div class="form-actions">
           <button class="btn" type="submit" id="submitBtn">Créer</button>
           <button class="ghost-btn" type="button" id="cancelEditBtn">Annuler</button>
         </div>
+
       </form>
     </section>
 
+    <!-- LIST -->
     <section class="panel">
       <div class="panel__header">
         <h2>Projets existants</h2>
@@ -88,6 +121,7 @@
       </div>
       <div id="portfolioList" class="portfolio-list"></div>
     </section>
+
   </main>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
