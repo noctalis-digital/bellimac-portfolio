@@ -19,14 +19,17 @@ const AnimatedRoutes = withRouter(({ location }) => (
       classNames="page"
       unmountOnExit
     >
-      <Routes location={location}>
-        <Route exact path="/" element={<Portfolio />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/contact" element={<ContactUs />} />
-        <Route path="*" element={<Portfolio />} />
-      </Routes>
+     <Routes location={location}>
+  <Route path="/" element={<Home />} />
+
+  <Route path="/photo" element={<Portfolio />} />
+  <Route path="/video" element={<Portfolio />} />
+  <Route path="/lumiere" element={<Portfolio />} />
+
+  <Route path="/contact" element={<ContactUs />} />
+
+  <Route path="*" element={<Home />} />
+</Routes>
     </CSSTransition>
   </TransitionGroup>
 ));
