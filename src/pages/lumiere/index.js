@@ -2,11 +2,12 @@ import "./style.css";
 import { Link } from "react-router-dom";
 import usePortfolio from "../../hooks/usePortfolio";
 import ProjectCard from "../../components/ProjectCard";
+import { getLights } from "../../utils/portfolioSelectors";
 
 export default function Lumiere() {
   const { items, loading } = usePortfolio();
 
-  const lights = items.filter((p) => p.category === "light");
+  const lights = getLights(items);
 
   return (
     <section className="intro_sec">
@@ -18,32 +19,25 @@ export default function Lumiere() {
 
           <p>
             Chef électro et machiniste sur tournages cinéma et publicité.
-            Mise en place lumière, gestion des contraintes techniques et continuité image.
+            Mise en place lumière, gestion technique et continuité image.
           </p>
-
-          <h3>Compétences</h3>
-          <p>Lighting design</p>
-          <p>Chef électro</p>
-          <p>Machinerie / grip</p>
-          <p>Installation plateau</p>
 
           <h3>Projets</h3>
 
-          {loading && <p>Chargement des projets...</p>}
+          {loading && <p>Chargement...</p>}
 
           {!loading && lights.length === 0 && (
             <p>Aucun projet pour le moment.</p>
           )}
 
-          {!loading &&
-            lights.map((p) => (
-              <ProjectCard
-                key={p._id}
-                title={p.title}
-                description={p.description}
-                image={p.image}
-              />
-            ))}
+          {lights.map((p) => (
+            <ProjectCard
+              key={p._id}
+              title={p.title}
+              description={p.description}
+              image={p.image}
+            />
+          ))}
 
           <div className="ac_btn">
             <Link to="/contact">Discuter d’un projet lumière</Link>
@@ -51,8 +45,6 @@ export default function Lumiere() {
 
         </div>
       </div>
-
-      <div className="h_bg-image" />
 
     </section>
   );
