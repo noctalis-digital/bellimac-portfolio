@@ -1,49 +1,58 @@
 import "./style.css";
-import { pages } from "../../config/siteContent";
 import { Link } from "react-router-dom";
+import usePortfolio from "../../hooks/usePortfolio";
+import ProjectCard from "../../components/ProjectCard";
 
 export default function Lumiere() {
-  const content = pages.lumiere;
+  const { items, loading } = usePortfolio();
+
+  const lights = items.filter((p) => p.category === "light");
 
   return (
     <section className="intro_sec">
 
-      {/* TEXTE */}
       <div className="text">
         <div className="intro">
 
-          <h1>{content.title}</h1>
+          <h1>Technique plateau & lumière</h1>
 
-          <p>{content.description}</p>
+          <p>
+            Chef électro et machiniste sur tournages cinéma et publicité.
+            Mise en place lumière, gestion des contraintes techniques et continuité image.
+          </p>
 
-          <div className="feature">
-            <h3>Compétences</h3>
-            {content.skills.map((skill, i) => (
-              <p key={i}>{skill}</p>
+          <h3>Compétences</h3>
+          <p>Lighting design</p>
+          <p>Chef électro</p>
+          <p>Machinerie / grip</p>
+          <p>Installation plateau</p>
+
+          <h3>Projets</h3>
+
+          {loading && <p>Chargement des projets...</p>}
+
+          {!loading && lights.length === 0 && (
+            <p>Aucun projet pour le moment.</p>
+          )}
+
+          {!loading &&
+            lights.map((p) => (
+              <ProjectCard
+                key={p._id}
+                title={p.title}
+                description={p.description}
+                image={p.image}
+              />
             ))}
-          </div>
-
-          <div className="feature">
-            <h3>Rôle sur plateau</h3>
-            <p>Chef électro</p>
-            <p>Machiniste / grip</p>
-            <p>Installation lumière cinéma & publicité</p>
-          </div>
 
           <div className="ac_btn">
-            <Link to="/contact">Discuter d’un projet</Link>
+            <Link to="/contact">Discuter d’un projet lumière</Link>
           </div>
 
         </div>
       </div>
 
-      {/* IMAGE */}
-      <div
-        className="h_bg-image"
-        style={{
-          backgroundImage: `url(${content.image})`
-        }}
-      />
+      <div className="h_bg-image" />
 
     </section>
   );
