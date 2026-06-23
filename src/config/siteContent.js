@@ -12,7 +12,6 @@ const meta = {
 
 const introdata = {
   logo: "BELLIMAC",
-  title: "Photographie d’entreprise & direction de l’image",
   subtitle: [
     "Photographie d’entreprise",
     "Direction de la photographie",
