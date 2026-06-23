@@ -10,16 +10,17 @@ import { filterByCategory } from "../../utils/filterByCategory";
 
 export default function Photo() {
   const { items, loading, error } = usePortfolio();
+
   console.log("ITEMS API =", items);
 
-  const photos = useMemo(
-    () => filterByCategory(items || [], "photo"),
-    [items]
-  );
+  // SAFE + scalable
+  const photos = useMemo(() => {
+    if (!Array.isArray(items)) return [];
+    return filterByCategory(items, "photo");
+  }, [items]);
 
-  const getImage = (project) => {
-    return project?.cover || project?.gallery?.[0]?.url || null;
-  };
+  const getImage = (project) =>
+    project?.cover || project?.gallery?.[0]?.url || null;
 
   return (
     <HelmetProvider>
@@ -105,11 +106,8 @@ export default function Photo() {
                     />
 
                     <div className="project_body">
-
                       <h4>{project.title}</h4>
-
                       <p>{project.description}</p>
-
                     </div>
 
                   </article>
