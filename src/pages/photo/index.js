@@ -10,6 +10,7 @@ import { filterByCategory } from "../../utils/filterByCategory";
 
 export default function Photo() {
   const { items, loading, error } = usePortfolio();
+  console.log("ITEMS API =", items);
 
   const photos = useMemo(
     () => filterByCategory(items || [], "photo"),
