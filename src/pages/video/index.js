@@ -1,58 +1,121 @@
+import React, { useMemo } from "react";
 import "./style.css";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import { Container, Row, Col } from "react-bootstrap";
+import { Link } from "react-router-dom";
+
+import { meta } from "../../config/siteContent";
 import { usePortfolio } from "../../hooks/usePortfolio";
 import { filterByCategory } from "../../utils/filterByCategory";
-import { Link } from "react-router-dom";
 
 export default function Video() {
   const { items, loading, error } = usePortfolio();
 
-  const videos = filterByCategory(items, "video");
+  const videos = useMemo(() => {
+    if (!Array.isArray(items)) return [];
+    return filterByCategory(items, "video");
+  }, [items]);
 
-  if (loading) return <section className="intro_sec"><p>Chargement...</p></section>;
-  if (error) return <section className="intro_sec"><p>Erreur : {error}</p></section>;
+  const getImage = (project) =>
+    project?.cover || project?.gallery?.[0]?.url || null;
 
   return (
-    <section className="intro_sec">
+    <HelmetProvider>
+      <Container>
 
-      <div className="text">
-        <div className="intro">
+        <Helmet>
+          <title>{`Vidéo | ${meta.title}`}</title>
+          <meta
+            name="description"
+            content="Direction de la photographie, publicité, clip musical et contenus de marque."
+          />
+        </Helmet>
 
-          <h1>Direction de la photographie</h1>
+        {/* HEADER */}
+        <Row className="mb-5 mt-3 pt-md-3">
+          <Col lg="8">
 
-          <p>
-            Création d’image pour publicité, clip et contenus de marque.
-          </p>
+            <h1 className="display-4 mb-4">
+              Direction de la photographie
+            </h1>
 
-          <h3>Domaines</h3>
-          <p>Publicité</p>
-          <p>Clip musical</p>
-          <p>Brand content</p>
+            <hr className="t_border my-4 ml-0 text-left" />
 
-          <h3>Projets</h3>
+            <p className="photo_intro">
+              Création d’image pour publicité, clip et contenus de marque.
+            </p>
 
-          {videos.length === 0 && <p>Aucun projet</p>}
+          </Col>
+        </Row>
 
-          {videos.map((p) => (
-            <div key={p.id}>
-              <b>{p.title}</b>
-              <p>{p.description}</p>
+        {/* CONTENU */}
+        <Row className="sec_sp">
+
+          <Col lg="4">
+
+            <h3 className="color_sec py-3">
+              Domaines
+            </h3>
+
+            <ul className="photo_services">
+              <li>Publicité</li>
+              <li>Clip musical</li>
+              <li>Brand content</li>
+            </ul>
+
+            <Link to="/contact">
+              <button className="btn ac_btn">
+                Travailler ensemble
+              </button>
+            </Link>
+
+          </Col>
+
+          <Col lg="8">
+
+            <h3 className="color_sec pb-4">
+              Projets
+            </h3>
+
+            {loading && <p>Chargement…</p>}
+
+            {error && <p>Erreur : {error}</p>}
+
+            {!loading && !error && videos.length === 0 && (
+              <p>Aucun projet vidéo.</p>
+            )}
+
+            <div className="projects_grid">
+
+              {videos.map((project) => {
+                const img = getImage(project);
+
+                return (
+                  <article className="project_card" key={project.id}>
+
+                    <div
+                      className="project_image"
+                      style={{
+                        backgroundImage: img ? `url(${img})` : "none",
+                      }}
+                    />
+
+                    <div className="project_body">
+                      <h4>{project.title}</h4>
+                      <p>{project.description}</p>
+                    </div>
+
+                  </article>
+                );
+              })}
+
             </div>
-          ))}
 
-          <div className="ac_btn">
-            <Link to="/contact">Travailler ensemble</Link>
-          </div>
+          </Col>
 
-        </div>
-      </div>
+        </Row>
 
-      <div
-        className="h_bg-image"
-        style={{
-          backgroundImage: `url(${videos?.[0]?.cover || ""})`
-        }}
-      />
-
-    </section>
+      </Container>
+    </HelmetProvider>
   );
 }
