@@ -1,58 +1,164 @@
 import "./style.css";
-import { usePortfolio } from "../../hooks/usePortfolio";
-import { filterByCategory } from "../../utils/filterByCategory";
+import { Helmet, HelmetProvider } from "react-helmet-async";
+import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
+import { meta } from "../../config/siteContent";
+import { usePortfolio } from "../../hooks/usePortfolio";
+import { filterByCategory } from "../../utils/filterByCategory";
+
 export default function Photo() {
-  const { items, loading, error } = usePortfolio();
+const { items, loading, error } = usePortfolio();
 
-  const photos = filterByCategory(items, "photo");
+const photos = filterByCategory(items, "photo");
 
-  if (loading) return <section className="intro_sec"><p>Chargement...</p></section>;
-  if (error) return <section className="intro_sec"><p>Erreur : {error}</p></section>;
+return ( <HelmetProvider>
 
-  return (
-    <section className="intro_sec">
+```
+  <Container>
 
-      <div className="text">
-        <div className="intro">
+    <Helmet>
+      <title>{`Photo | ${meta.title}`}</title>
+      <meta
+        name="description"
+        content="Photographie d’entreprise, portraits corporate, événementiel et communication visuelle."
+      />
+    </Helmet>
 
-          <h1>Photographie d’entreprise</h1>
+    {/* HEADER */}
 
-          <p>
-            Portraits corporate, équipes, événements et communication visuelle.
-          </p>
+    <Row className="mb-5 mt-3 pt-md-3">
 
-          <h3>Prestations</h3>
-          <p>Portraits professionnels</p>
-          <p>Événementiel entreprise</p>
-          <p>Communication visuelle</p>
+      <Col lg="8">
 
-          <h3>Projets</h3>
+        <h1 className="display-4 mb-4">
+          Photographie d’entreprise
+        </h1>
 
-          {photos.length === 0 && <p>Aucun projet</p>}
+        <hr className="t_border my-4 ml-0 text-left" />
 
-          {photos.map((p) => (
-            <div key={p.id}>
-              <b>{p.title}</b>
-              <p>{p.description}</p>
-            </div>
+        <p className="photo_intro">
+
+          Portraits corporate, équipes,
+          événements et communication
+          visuelle pour entreprises
+          et marques.
+
+        </p>
+
+      </Col>
+
+    </Row>
+
+    {/* CONTENU */}
+
+    <Row className="sec_sp">
+
+      <Col lg="4">
+
+        <h3 className="color_sec py-3">
+          Prestations
+        </h3>
+
+        <ul className="photo_services">
+
+          <li>Portraits professionnels</li>
+
+          <li>Reportage entreprise</li>
+
+          <li>Communication visuelle</li>
+
+          <li>Événementiel</li>
+
+        </ul>
+
+        <Link to="/contact">
+
+          <button className="btn ac_btn">
+
+            Demander un devis
+
+          </button>
+
+        </Link>
+
+      </Col>
+
+      <Col lg="8">
+
+        <h3 className="color_sec pb-4">
+
+          Projets
+
+        </h3>
+
+        {loading && (
+          <p>Chargement…</p>
+        )}
+
+        {error && (
+          <p>Erreur : {error}</p>
+        )}
+
+        {!loading &&
+          !error &&
+          photos.length === 0 && (
+            <p>
+              Aucun projet photo.
+            </p>
+          )}
+
+        <div className="projects_grid">
+
+          {photos.map((project) => (
+
+            <article
+              className="project_card"
+              key={project.id}
+            >
+
+              <div
+                className="project_image"
+                style={{
+                  backgroundImage:
+                    `url(${
+                      project.cover ||
+                      project.gallery?.[0]?.url ||
+                      ""
+                    })`,
+                }}
+              />
+
+              <div className="project_body">
+
+                <h4>
+
+                  {project.title}
+
+                </h4>
+
+                <p>
+
+                  {project.description}
+
+                </p>
+
+              </div>
+
+            </article>
+
           ))}
 
-          <div className="ac_btn">
-            <Link to="/contact">Demander un devis</Link>
-          </div>
-
         </div>
-      </div>
 
-      <div
-        className="h_bg-image"
-        style={{
-          backgroundImage: `url(${photos?.[0]?.cover || ""})`
-        }}
-      />
+      </Col>
 
-    </section>
-  );
+    </Row>
+
+  </Container>
+
+</HelmetProvider>
+```
+
+);
 }
