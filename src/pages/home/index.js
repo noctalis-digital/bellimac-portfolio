@@ -36,10 +36,6 @@ export const Home = () => {
 
               <div className="intro mx-auto">
 
-                <h2 className="mb-1x">
-                  Photographie & direction de l’image
-                </h2>
-
                 <h1 className="fluidz-48 mb-1x">
                   Photographie d’entreprise<br />
                   Direction de la photographie<br />
