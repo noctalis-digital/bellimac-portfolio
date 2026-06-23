@@ -1,3 +1,4 @@
+import React, { useMemo } from "react";
 import "./style.css";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Container, Row, Col } from "react-bootstrap";
@@ -8,157 +9,119 @@ import { usePortfolio } from "../../hooks/usePortfolio";
 import { filterByCategory } from "../../utils/filterByCategory";
 
 export default function Photo() {
-const { items, loading, error } = usePortfolio();
+  const { items, loading, error } = usePortfolio();
 
-const photos = filterByCategory(items, "photo");
+  const photos = useMemo(
+    () => filterByCategory(items || [], "photo"),
+    [items]
+  );
 
-return ( <HelmetProvider>
+  const getImage = (project) => {
+    return project?.cover || project?.gallery?.[0]?.url || null;
+  };
 
-```
-  <Container>
+  return (
+    <HelmetProvider>
+      <Container>
 
-    <Helmet>
-      <title>{`Photo | ${meta.title}`}</title>
-      <meta
-        name="description"
-        content="Photographie d’entreprise, portraits corporate, événementiel et communication visuelle."
-      />
-    </Helmet>
+        <Helmet>
+          <title>{`Photo | ${meta.title}`}</title>
+          <meta
+            name="description"
+            content="Photographie d’entreprise, portraits corporate, événementiel et communication visuelle."
+          />
+        </Helmet>
 
-    {/* HEADER */}
+        {/* HEADER */}
+        <Row className="mb-5 mt-3 pt-md-3">
+          <Col lg="8">
 
-    <Row className="mb-5 mt-3 pt-md-3">
+            <h1 className="display-4 mb-4">
+              Photographie d’entreprise
+            </h1>
 
-      <Col lg="8">
+            <hr className="t_border my-4 ml-0 text-left" />
 
-        <h1 className="display-4 mb-4">
-          Photographie d’entreprise
-        </h1>
-
-        <hr className="t_border my-4 ml-0 text-left" />
-
-        <p className="photo_intro">
-
-          Portraits corporate, équipes,
-          événements et communication
-          visuelle pour entreprises
-          et marques.
-
-        </p>
-
-      </Col>
-
-    </Row>
-
-    {/* CONTENU */}
-
-    <Row className="sec_sp">
-
-      <Col lg="4">
-
-        <h3 className="color_sec py-3">
-          Prestations
-        </h3>
-
-        <ul className="photo_services">
-
-          <li>Portraits professionnels</li>
-
-          <li>Reportage entreprise</li>
-
-          <li>Communication visuelle</li>
-
-          <li>Événementiel</li>
-
-        </ul>
-
-        <Link to="/contact">
-
-          <button className="btn ac_btn">
-
-            Demander un devis
-
-          </button>
-
-        </Link>
-
-      </Col>
-
-      <Col lg="8">
-
-        <h3 className="color_sec pb-4">
-
-          Projets
-
-        </h3>
-
-        {loading && (
-          <p>Chargement…</p>
-        )}
-
-        {error && (
-          <p>Erreur : {error}</p>
-        )}
-
-        {!loading &&
-          !error &&
-          photos.length === 0 && (
-            <p>
-              Aucun projet photo.
+            <p className="photo_intro">
+              Portraits corporate, équipes, événements et communication
+              visuelle pour entreprises et marques.
             </p>
-          )}
 
-        <div className="projects_grid">
+          </Col>
+        </Row>
 
-          {photos.map((project) => (
+        {/* CONTENU */}
+        <Row className="sec_sp">
 
-            <article
-              className="project_card"
-              key={project.id}
-            >
+          <Col lg="4">
 
-              <div
-                className="project_image"
-                style={{
-                  backgroundImage:
-                    `url(${
-                      project.cover ||
-                      project.gallery?.[0]?.url ||
-                      ""
-                    })`,
-                }}
-              />
+            <h3 className="color_sec py-3">
+              Prestations
+            </h3>
 
-              <div className="project_body">
+            <ul className="photo_services">
+              <li>Portraits professionnels</li>
+              <li>Reportage entreprise</li>
+              <li>Communication visuelle</li>
+              <li>Événementiel</li>
+            </ul>
 
-                <h4>
+            <Link to="/contact">
+              <button className="btn ac_btn">
+                Demander un devis
+              </button>
+            </Link>
 
-                  {project.title}
+          </Col>
 
-                </h4>
+          <Col lg="8">
 
-                <p>
+            <h3 className="color_sec pb-4">
+              Projets
+            </h3>
 
-                  {project.description}
+            {loading && <p>Chargement…</p>}
 
-                </p>
+            {error && <p>Erreur : {error}</p>}
 
-              </div>
+            {!loading && !error && photos.length === 0 && (
+              <p>Aucun projet photo.</p>
+            )}
 
-            </article>
+            <div className="projects_grid">
 
-          ))}
+              {photos.map((project) => {
+                const img = getImage(project);
 
-        </div>
+                return (
+                  <article className="project_card" key={project.id}>
 
-      </Col>
+                    <div
+                      className="project_image"
+                      style={{
+                        backgroundImage: img ? `url(${img})` : "none",
+                      }}
+                    />
 
-    </Row>
+                    <div className="project_body">
 
-  </Container>
+                      <h4>{project.title}</h4>
 
-</HelmetProvider>
-```
+                      <p>{project.description}</p>
 
-);
+                    </div>
+
+                  </article>
+                );
+              })}
+
+            </div>
+
+          </Col>
+
+        </Row>
+
+      </Container>
+    </HelmetProvider>
+  );
 }
