@@ -12,8 +12,8 @@ export default function Photo() {
   const { items = [], loading, error } = usePortfolio();
 
   console.log(
-    "CATEGORIES =",
-    (items || []).map((i) => ({
+    "RAW ITEMS CATEGORIES =",
+    items.map((i) => ({
       title: i.title,
       category: i.category,
     }))
@@ -21,7 +21,12 @@ export default function Photo() {
 
   const photos = useMemo(() => {
     if (!Array.isArray(items)) return [];
-    return filterByCategory(items, "photo");
+
+    const filtered = filterByCategory(items, "photo");
+
+    console.log("FILTERED PHOTOS =", filtered);
+
+    return filtered;
   }, [items]);
 
   const getImage = (project) => {
@@ -47,10 +52,8 @@ export default function Photo() {
           />
         </Helmet>
 
-        {/* HEADER */}
         <Row className="mb-5 mt-3 pt-md-3">
           <Col lg="8">
-
             <h1 className="display-4 mb-4">
               Photographie d’entreprise
             </h1>
@@ -60,18 +63,13 @@ export default function Photo() {
             <p className="photo_intro">
               Portraits corporate, équipes, événements et communication visuelle pour entreprises et marques.
             </p>
-
           </Col>
         </Row>
 
-        {/* CONTENU */}
         <Row className="sec_sp">
 
           <Col lg="4">
-
-            <h3 className="color_sec py-3">
-              Prestations
-            </h3>
+            <h3 className="color_sec py-3">Prestations</h3>
 
             <ul className="photo_services">
               <li>Portraits professionnels</li>
@@ -85,14 +83,10 @@ export default function Photo() {
                 Demander un devis
               </button>
             </Link>
-
           </Col>
 
           <Col lg="8">
-
-            <h3 className="color_sec pb-4">
-              Projets
-            </h3>
+            <h3 className="color_sec pb-4">Projets</h3>
 
             {loading && <p>Chargement…</p>}
             {error && <p>Erreur : {error}</p>}
@@ -124,6 +118,11 @@ export default function Photo() {
                     <div className="project_body">
                       <h4>{project.title}</h4>
                       <p>{project.description}</p>
+
+                      {/* DEBUG IMPORTANT */}
+                      <small style={{ opacity: 0.5 }}>
+                        category: {project.category || "NULL"}
+                      </small>
                     </div>
 
                   </article>
