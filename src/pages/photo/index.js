@@ -9,35 +9,31 @@ import { usePortfolio } from "../../hooks/usePortfolio";
 import { filterByCategory } from "../../utils/filterByCategory";
 
 export default function Photo() {
-  const { items, loading, error } = usePortfolio();
+  const { items = [], loading, error } = usePortfolio();
 
   console.log(
-  "CATEGORIES =",
-  items.map((i) => ({
-    title: i.title,
-    category: i.category,
-  }))
-);
+    "CATEGORIES =",
+    (items || []).map((i) => ({
+      title: i.title,
+      category: i.category,
+    }))
+  );
 
-  // SAFE + scalable
   const photos = useMemo(() => {
     if (!Array.isArray(items)) return [];
     return filterByCategory(items, "photo");
   }, [items]);
 
-const getImage = (project) => {
-  console.log("IMAGE DATA =", project);
-
-  return (
-    project?.cover ||
-    project?.image ||
-    project?.thumbnail ||
-    project?.media?.url ||
-    project?.gallery?.[0]?.url ||
-    project?.gallery?.[0] ||
-    null
-  );
-};
+  const getImage = (project) => {
+    return (
+      project?.coverUrl ||
+      project?.galleryUrls?.[0] ||
+      project?.cover?.url ||
+      project?.image ||
+      project?.thumbnail ||
+      null
+    );
+  };
 
   return (
     <HelmetProvider>
@@ -62,8 +58,7 @@ const getImage = (project) => {
             <hr className="t_border my-4 ml-0 text-left" />
 
             <p className="photo_intro">
-              Portraits corporate, équipes, événements et communication
-              visuelle pour entreprises et marques.
+              Portraits corporate, équipes, événements et communication visuelle pour entreprises et marques.
             </p>
 
           </Col>
@@ -100,7 +95,6 @@ const getImage = (project) => {
             </h3>
 
             {loading && <p>Chargement…</p>}
-
             {error && <p>Erreur : {error}</p>}
 
             {!loading && !error && photos.length === 0 && (
@@ -119,6 +113,11 @@ const getImage = (project) => {
                       className="project_image"
                       style={{
                         backgroundImage: img ? `url(${img})` : "none",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        width: "100%",
+                        height: "260px",
+                        backgroundColor: "#222",
                       }}
                     />
 
