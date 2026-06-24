@@ -11,7 +11,13 @@ import { filterByCategory } from "../../utils/filterByCategory";
 export default function Photo() {
   const { items, loading, error } = usePortfolio();
 
-  console.log("ITEMS API =", items);
+  console.log(
+  "CATEGORIES =",
+  items.map((i) => ({
+    title: i.title,
+    category: i.category,
+  }))
+);
 
   // SAFE + scalable
   const photos = useMemo(() => {
