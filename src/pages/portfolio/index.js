@@ -10,15 +10,12 @@ import { Link } from "react-router-dom";
 import { fetchPortfolio } from "../../services/portfolioApi";
 
 const normalizeProject = (project) => {
-  const gallery =
-    project?.gallery?.map((item) => item.url || item) ||
-    project?.galleryUrls ||
-    [];
+  const gallery = project?.galleryUrls || project?.gallery || [];
+
   const coverUrl =
     project.coverUrl ||
     project.cover?.url ||
-    gallery[0] ||
-    project.img ||
+    gallery?.[0] ||
     "";
 
   return {
