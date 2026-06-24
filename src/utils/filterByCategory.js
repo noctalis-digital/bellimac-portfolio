@@ -1,8 +1,11 @@
 export const filterByCategory = (items = [], category) => {
-  if (!Array.isArray(items)) return [];
-
   return items.filter((item) => {
-    const itemCategory = item?.category?.toLowerCase?.();
-    return itemCategory === category.toLowerCase();
+    if (!item.category) return true;
+
+    return (
+      item.category
+        .toLowerCase()
+        .trim() === category.toLowerCase()
+    );
   });
 };
