@@ -35,31 +35,30 @@ export const Portfolio = () => {
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
   const pageTitle = `Portfolio | ${meta.title}`;
   const pageDescription = meta.description;
 
   useEffect(() => {
     let active = true;
+
     const load = async () => {
       try {
         const items = await fetchPortfolio();
         if (!active) return;
-        setProjects(items.map((item) => normalizeProject(item)));
+        setProjects(items.map(normalizeProject));
       } catch (err) {
         console.error("[portfolio] Chargement impossible", err);
         if (active) {
-          setError(
-            err.message || "Impossible de charger le portfolio pour le moment."
-          );
+          setError(err.message || "Erreur chargement portfolio");
         }
       } finally {
-        if (active) {
-          setLoading(false);
-        }
+        if (active) setLoading(false);
       }
     };
 
     load();
+
     return () => {
       active = false;
     };
@@ -77,18 +76,15 @@ export const Portfolio = () => {
     <HelmetProvider>
       <section id="portfolio-home" className="home">
         <Helmet>
-          <meta charSet="utf-8" />
           <title>{pageTitle}</title>
           <meta name="description" content={pageDescription} />
-          <meta name="keywords" content={meta.keywords} />
-          <meta property="og:title" content={pageTitle} />
-          <meta property="og:description" content={pageDescription} />
-          <meta property="og:type" content="website" />
         </Helmet>
+
         <Container className="About-header" id="portfolio-section">
           <div className="intro mx-auto mb-5">
-            <h2 className="mb-1x">{introdata.title}</h2>
-            <h1 className="fluidz-48 mb-1x">
+            <h2>{introdata.title}</h2>
+
+            <h1 className="fluidz-48">
               <Typewriter
                 options={{
                   strings: [
@@ -98,71 +94,47 @@ export const Portfolio = () => {
                   ],
                   autoStart: true,
                   loop: true,
-                  deleteSpeed: 10,
                 }}
               />
             </h1>
-            <p className="mb-1x">{introdata.description}</p>
-            <div className="intro_btn-action pb-4">
-              {/* <a href="#portfolio-grid" className="text_2">
-                <div id="button_p" className="ac_btn btn ">
-                  Mes projets
-                  <div className="ring one"></div>
-                  <div className="ring two"></div>
-                  <div className="ring three"></div>
-                </div>
-              </a> */}
-              <Link to="/contact">
-                <div id="button_h" className="ac_btn btn">
-                  Contactez-moi
-                  <div className="ring one"></div>
-                  <div className="ring two"></div>
-                  <div className="ring three"></div>
-                </div>
-              </Link>
-            </div>
+
+            <p>{introdata.description}</p>
+
+            <Link to="/contact" className="ac_btn btn">
+              Contactez-moi
+            </Link>
           </div>
 
           <Row className="mb-5 mt-3 pt-md-3">
             <Col lg="8">
-              <h1 className="display-4 mb-4"> Portfolio </h1>{" "}
-              <hr className="t_border my-4 ml-0 text-left" />
+              <h1 className="display-4 mb-4">Portfolio</h1>
             </Col>
           </Row>
+
           <div className="mb-5 po_items_ho" id="portfolio-grid">
-            {loading && (
-              <p className="text-muted">Chargement du portfolio...</p>
-            )}
-            {error && <p className="text-warning">{error}</p>}
-            {!loading && !error && projects.length === 0 && (
-              <p className="text-muted">
-                Les projets seront publiés ici dès qu'ils seront disponibles.
-              </p>
-            )}
+            {loading && <p>Chargement...</p>}
+            {error && <p>{error}</p>}
+
             {!loading &&
               !error &&
-              projects.map((project) => {
-                return (
-                  <div key={project.id || project.title} className="po_item">
-                    {project.coverUrl ? (
-                      <img
-                        <img
-  src="https://picsum.photos/600/400"
-  alt="test"
-  style={{ width: "100%", height: "200px", objectFit: "cover" }}
-/>
-                    <div className="content">
-                      <button
-                        type="button"
-                        className="po_btn"
-                        onClick={() => openProject(project)}
-                      >
-                        Voir le projet
-                      </button>
-                    </div>
+              projects.map((project) => (
+                <div key={project.id} className="po_item">
+                  <img
+                    src={project.coverUrl || "https://picsum.photos/600/400"}
+                    alt={project.title}
+                  />
+
+                  <div className="content">
+                    <button
+                      type="button"
+                      className="po_btn"
+                      onClick={() => openProject(project)}
+                    >
+                      Voir le projet
+                    </button>
                   </div>
-                );
-              })}
+                </div>
+              ))}
           </div>
         </Container>
 
@@ -171,55 +143,45 @@ export const Portfolio = () => {
           onHide={closeModal}
           size="lg"
           centered
-          contentClassName="portfolio-modal"
         >
           <Modal.Header closeButton>
             <Modal.Title>
-              {selectedProject?.title || "Projet"}
+              {selectedProject?.title}
             </Modal.Title>
           </Modal.Header>
+
           <Modal.Body>
-            {selectedProject?.description && (
-              <p className="mb-3">{selectedProject.description}</p>
-            )}
-            {selectedProject?.detailsHtml && (
-              <div
-                className="mb-4 rich-text"
-                dangerouslySetInnerHTML={{
-                  __html: selectedProject.detailsHtml,
-                }}
-              />
-            )}
-            {selectedProject?.gallery?.length ? (
+            <p>{selectedProject?.description}</p>
+
+            {selectedProject?.gallery?.length > 0 && (
               <div className="modal-gallery">
                 {selectedProject.gallery.map((img, idx) => (
-                  <img
-                    key={`${selectedProject.title || "Projet"}-${idx}`}
-                    src={img}
-                    alt={`${selectedProject.title || "Projet"} ${idx + 1}`}
-                  />
+                  <img key={idx} src={img} alt="" />
                 ))}
               </div>
-            ) : selectedProject?.coverUrl ? (
-              <img
-                src={selectedProject.coverUrl}
-                alt={selectedProject.title || "Projet"}
-                className="w-100"
-              />
-            ) : null}
+            )}
+
+            {!selectedProject?.gallery?.length &&
+              selectedProject?.coverUrl && (
+                <img
+                  src={selectedProject.coverUrl}
+                  alt=""
+                  className="w-100"
+                />
+              )}
+
             {selectedProject?.link && (
-              <div className="mt-3">
-                <a
-                  href={selectedProject.link}
-                  className="btn ac_btn"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Ouvrir le lien
-                </a>
-              </div>
+              <a
+                href={selectedProject.link}
+                target="_blank"
+                rel="noreferrer"
+                className="btn ac_btn mt-3"
+              >
+                Ouvrir le lien
+              </a>
             )}
           </Modal.Body>
+
           <Modal.Footer>
             <button className="btn ac_btn" onClick={closeModal}>
               Fermer
