@@ -24,6 +24,10 @@ const normalizeProject = (project) => {
     description: project.description || "",
     detailsHtml: project.detailsHtml || "",
     link: project.link || "",
+
+    // 🔥 IMPORTANT: catégorie normalisée pour filtrage futur
+    category: (project.category || "").toLowerCase().trim(),
+
     coverUrl,
     gallery,
     updatedAt: project.updatedAt,
@@ -46,7 +50,8 @@ export const Portfolio = () => {
       try {
         const items = await fetchPortfolio();
         if (!active) return;
-        setProjects(items.map(normalizeProject));
+
+        setProjects((items || []).map(normalizeProject));
       } catch (err) {
         console.error("[portfolio] Chargement impossible", err);
         if (active) {
@@ -120,8 +125,12 @@ export const Portfolio = () => {
               projects.map((project) => (
                 <div key={project.id} className="po_item">
                   <img
-                    src={project.coverUrl || "https://picsum.photos/600/400"}
+                    src={
+                      project.coverUrl ||
+                      "https://picsum.photos/600/400"
+                    }
                     alt={project.title}
+                    loading="lazy"
                   />
 
                   <div className="content">
