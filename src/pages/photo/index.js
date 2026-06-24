@@ -25,8 +25,19 @@ export default function Photo() {
     return filterByCategory(items, "photo");
   }, [items]);
 
-  const getImage = (project) =>
-    project?.cover || project?.gallery?.[0]?.url || null;
+const getImage = (project) => {
+  console.log("IMAGE DATA =", project);
+
+  return (
+    project?.cover ||
+    project?.image ||
+    project?.thumbnail ||
+    project?.media?.url ||
+    project?.gallery?.[0]?.url ||
+    project?.gallery?.[0] ||
+    null
+  );
+};
 
   return (
     <HelmetProvider>
