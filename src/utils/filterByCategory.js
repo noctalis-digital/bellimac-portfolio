@@ -1,11 +1,11 @@
 export const filterByCategory = (items = [], category) => {
-  return items.filter((item) => {
-    if (!item.category) return true;
+  if (!Array.isArray(items)) return [];
 
-    return (
-      item.category
-        .toLowerCase()
-        .trim() === category.toLowerCase()
-    );
+  const target = (category || "").toLowerCase().trim();
+
+  return items.filter((item) => {
+    const itemCategory = (item?.category || "").toLowerCase().trim();
+
+    return itemCategory === target;
   });
 };
