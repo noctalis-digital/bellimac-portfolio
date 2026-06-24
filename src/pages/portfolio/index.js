@@ -146,14 +146,11 @@ export const Portfolio = () => {
                   <div key={project.id || project.title} className="po_item">
                     {project.coverUrl ? (
                       <img
-                        src={project.coverUrl}
-                        alt={project.title || "Projet"}
-                      />
-                    ) : (
-                      <div className="po_placeholder">
-                        <p>Image à venir</p>
-                      </div>
-                    )}
+                        <img
+  src="https://picsum.photos/600/400"
+  alt="test"
+  style={{ width: "100%", height: "200px", objectFit: "cover" }}
+/>
                     <div className="content">
                       <button
                         type="button"
