@@ -8,9 +8,6 @@ export const filterByCategory = (items = [], category) => {
       .toLowerCase()
       .trim();
 
-    // fallback intelligent si catégorie absente
-    const normalizedCategory = itemCategory || "photo";
-
-    return normalizedCategory === target;
+    return itemCategory === target;
   });
 };
