@@ -9,15 +9,41 @@ import { usePortfolio } from "../../hooks/usePortfolio";
 import { filterByCategory } from "../../utils/filterByCategory";
 
 export default function Lumiere() {
-  const { items, loading, error } = usePortfolio();
+  const { items = [], loading, error } = usePortfolio();
+
+  console.log(
+    "RAW ITEMS CATEGORIES =",
+    items.map((i) => ({
+      title: i.title,
+      category: i.category,
+    }))
+  );
 
   const lights = useMemo(() => {
     if (!Array.isArray(items)) return [];
-    return filterByCategory(items, "lumiere");
+
+    const normalized = items.map((i) => ({
+      ...i,
+      category: (i.category || "").toLowerCase().trim(),
+    }));
+
+    const filtered = filterByCategory(normalized, "lumiere");
+
+    console.log("FILTERED LIGHTS =", filtered);
+
+    return filtered;
   }, [items]);
 
-  const getImage = (project) =>
-    project?.cover || project?.gallery?.[0]?.url || null;
+  const getImage = (project) => {
+    return (
+      project?.coverUrl ||
+      project?.galleryUrls?.[0] ||
+      project?.cover?.url ||
+      project?.image ||
+      project?.thumbnail ||
+      null
+    );
+  };
 
   return (
     <HelmetProvider>
@@ -31,7 +57,6 @@ export default function Lumiere() {
           />
         </Helmet>
 
-        {/* HEADER */}
         <Row className="mb-5 mt-3 pt-md-3">
           <Col lg="8">
 
@@ -48,7 +73,6 @@ export default function Lumiere() {
           </Col>
         </Row>
 
-        {/* CONTENU */}
         <Row className="sec_sp">
 
           <Col lg="4">
@@ -78,7 +102,6 @@ export default function Lumiere() {
             </h3>
 
             {loading && <p>Chargement…</p>}
-
             {error && <p>Erreur : {error}</p>}
 
             {!loading && !error && lights.length === 0 && (
@@ -97,6 +120,11 @@ export default function Lumiere() {
                       className="project_image"
                       style={{
                         backgroundImage: img ? `url(${img})` : "none",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        width: "100%",
+                        height: "260px",
+                        backgroundColor: "#222",
                       }}
                     />
 
