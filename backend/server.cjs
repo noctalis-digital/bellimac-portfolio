@@ -291,8 +291,12 @@ app.get("/api/portfolio/:id", async (req, res, next) => {
     if (!item) {
       return res.status(404).json({ message: "Projet introuvable." });
     }
-    res.json({ item: mapItemForResponse(item) });
-  } catch (error) {
+res.json({
+  item: mapItemForResponse({
+    ...item,
+    category: item.category?.trim() || "photo",
+  }),
+});  } catch (error) {
     next(error);
   }
 });
