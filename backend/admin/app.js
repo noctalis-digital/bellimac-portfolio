@@ -69,6 +69,7 @@
     coverInput.value = "";
     galleryInput.value = "";
     detailsInput.value = "";
+    categoryInput.value = "";
 
     existingGallery.innerHTML =
       '<p class="hint">Aucune galerie enregistrée.</p>';
