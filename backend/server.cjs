@@ -450,15 +450,16 @@ app.put(
       }
 
       const updatedItem = {
-        ...current,
-        title,
-        description,
-        link,
-        detailsHtml,
-        cover,
-        gallery: updatedGallery,
-        updatedAt: new Date().toISOString(),
-      };
+  ...current,
+  title,
+  description,
+  category,   // 🔥 OBLIGATOIRE
+  link,
+  detailsHtml,
+  cover,
+  gallery: updatedGallery,
+  updatedAt: new Date().toISOString(),
+};
 
       items[index] = updatedItem;
       await savePortfolioIndex(items);
