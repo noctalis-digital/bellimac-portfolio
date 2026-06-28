@@ -188,12 +188,7 @@ if (!ALLOWED_CATEGORIES.includes(category)) {
   showToast("Choisissez une catégorie valide", "danger");
   return;
 }
-
-    if (!ALLOWED_CATEGORIES.includes(rawCategory)) {
-      showToast("Catégorie invalide → assignée à 'photo'", "danger");
-    }
-
-    const keepGallery = Array.from(
+      const keepGallery = Array.from(
       existingGallery.querySelectorAll('input[type="checkbox"]:checked')
     ).map((input) => input.value);
 
