@@ -4,8 +4,13 @@ export const filterByCategory = (items = [], category) => {
   const target = (category || "").toLowerCase().trim();
 
   return items.filter((item) => {
-    const itemCategory = (item?.category || "").toLowerCase().trim();
+    const itemCategory = (item?.category || "")
+      .toLowerCase()
+      .trim();
 
-    return itemCategory === target;
+    // fallback intelligent si catégorie absente
+    const normalizedCategory = itemCategory || "photo";
+
+    return normalizedCategory === target;
   });
 };
