@@ -272,8 +272,14 @@ app.get("/api/portfolio", async (req, res, next) => {
     const sorted = items.sort(
       (a, b) => new Date(b.updatedAt || b.createdAt) - new Date(a.updatedAt || a.createdAt)
     );
-    res.json({ items: sorted.map(mapItemForResponse) });
-  } catch (error) {
+res.json({
+  items: sorted.map((item) =>
+    mapItemForResponse({
+      ...item,
+      category: item.category?.trim() || "photo",
+    })
+  ),
+});  } catch (error) {
     next(error);
   }
 });
