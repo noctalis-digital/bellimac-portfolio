@@ -182,11 +182,12 @@ categoryInput.value = item.category || "";
 
     detailsInput.value = quill.root.innerHTML;
 
-    const rawCategory = (categoryInput.value || "").toLowerCase().trim();
+    const category = (categoryInput.value || "").toLowerCase().trim();
 
-    const category = ALLOWED_CATEGORIES.includes(rawCategory)
-      ? rawCategory
-      : "photo";
+if (!ALLOWED_CATEGORIES.includes(category)) {
+  showToast("Choisissez une catégorie valide", "danger");
+  return;
+}
 
     if (!ALLOWED_CATEGORIES.includes(rawCategory)) {
       showToast("Catégorie invalide → assignée à 'photo'", "danger");
