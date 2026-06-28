@@ -22,9 +22,9 @@ export default function Photo() {
 const photos = useMemo(() => {
   if (!Array.isArray(items)) return [];
 
-  const normalized = items.map((item) => ({
-    ...item,
-    category: (item.category || "photo").toLowerCase().trim(),
+  const normalized = items.map((i) => ({
+    ...i,
+    category: (i.category || "").toLowerCase().trim(),
   }));
 
   const filtered = filterByCategory(normalized, "photo");
