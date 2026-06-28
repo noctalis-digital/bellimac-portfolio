@@ -19,15 +19,20 @@ export default function Photo() {
     }))
   );
 
-  const photos = useMemo(() => {
-    if (!Array.isArray(items)) return [];
+const photos = useMemo(() => {
+  if (!Array.isArray(items)) return [];
 
-    const filtered = filterByCategory(items, "photo");
+  const normalized = items.map((item) => ({
+    ...item,
+    category: (item.category || "photo").toLowerCase().trim(),
+  }));
 
-    console.log("FILTERED PHOTOS =", filtered);
+  const filtered = filterByCategory(normalized, "photo");
 
-    return filtered;
-  }, [items]);
+  console.log("FILTERED PHOTOS =", filtered);
+
+  return filtered;
+}, [items]);
 
   const getImage = (project) => {
     return (
