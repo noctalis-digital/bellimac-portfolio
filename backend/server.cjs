@@ -276,10 +276,11 @@ res.json({
   items: sorted.map((item) =>
     mapItemForResponse({
       ...item,
-      category: item.category?.trim() || "photo",
+      category: item.category?.toLowerCase().trim() || "",
     })
   ),
-});  } catch (error) {
+});
+  } catch (error) {
     next(error);
   }
 });
