@@ -9,15 +9,41 @@ import { usePortfolio } from "../../hooks/usePortfolio";
 import { filterByCategory } from "../../utils/filterByCategory";
 
 export default function Video() {
-  const { items, loading, error } = usePortfolio();
+  const { items = [], loading, error } = usePortfolio();
+
+  console.log(
+    "RAW ITEMS CATEGORIES =",
+    items.map((i) => ({
+      title: i.title,
+      category: i.category,
+    }))
+  );
 
   const videos = useMemo(() => {
     if (!Array.isArray(items)) return [];
-    return filterByCategory(items, "video");
+
+    const normalized = items.map((i) => ({
+      ...i,
+      category: (i.category || "").toLowerCase().trim(),
+    }));
+
+    const filtered = filterByCategory(normalized, "video");
+
+    console.log("FILTERED VIDEOS =", filtered);
+
+    return filtered;
   }, [items]);
 
-  const getImage = (project) =>
-    project?.cover || project?.gallery?.[0]?.url || null;
+  const getImage = (project) => {
+    return (
+      project?.coverUrl ||
+      project?.galleryUrls?.[0] ||
+      project?.cover?.url ||
+      project?.image ||
+      project?.thumbnail ||
+      null
+    );
+  };
 
   return (
     <HelmetProvider>
@@ -25,14 +51,15 @@ export default function Video() {
 
         <Helmet>
           <title>{`Vidéo | ${meta.title}`}</title>
+
           <meta
             name="description"
             content="Direction de la photographie, publicité, clip musical et contenus de marque."
           />
         </Helmet>
 
-        {/* HEADER */}
         <Row className="mb-5 mt-3 pt-md-3">
+
           <Col lg="8">
 
             <h1 className="display-4 mb-4">
@@ -46,9 +73,9 @@ export default function Video() {
             </p>
 
           </Col>
+
         </Row>
 
-        {/* CONTENU */}
         <Row className="sec_sp">
 
           <Col lg="4">
@@ -91,18 +118,35 @@ export default function Video() {
                 const img = getImage(project);
 
                 return (
-                  <article className="project_card" key={project.id}>
+                  <article
+                    className="project_card"
+                    key={project.id}
+                  >
 
                     <div
                       className="project_image"
                       style={{
-                        backgroundImage: img ? `url(${img})` : "none",
+                        backgroundImage: img
+                          ? `url(${img})`
+                          : "none",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                        width: "100%",
+                        height: "260px",
+                        backgroundColor: "#222",
                       }}
                     />
 
                     <div className="project_body">
-                      <h4>{project.title}</h4>
-                      <p>{project.description}</p>
+
+                      <h4>
+                        {project.title}
+                      </h4>
+
+                      <p>
+                        {project.description}
+                      </p>
+
                     </div>
 
                   </article>
