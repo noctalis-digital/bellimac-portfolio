@@ -104,8 +104,9 @@
     submitBtn.textContent = "Mettre à jour";
 
     titleInput.value = item.title || "";
-    descriptionInput.value = item.description || "";
-    linkInput.value = item.link || "";
+descriptionInput.value = item.description || "";
+linkInput.value = item.link || "";
+categoryInput.value = item.category || "";
 
     quill.root.innerHTML = item.detailsHtml || "";
 
