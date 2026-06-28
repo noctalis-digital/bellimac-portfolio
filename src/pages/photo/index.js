@@ -124,10 +124,7 @@ const photos = useMemo(() => {
                       <h4>{project.title}</h4>
                       <p>{project.description}</p>
 
-                      {/* DEBUG IMPORTANT */}
-                      <small style={{ opacity: 0.5 }}>
-                        category: {project.category || "NULL"}
-                      </small>
+                      
                     </div>
 
                   </article>
