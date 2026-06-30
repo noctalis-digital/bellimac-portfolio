@@ -353,6 +353,7 @@ if (!["photo", "video", "lumiere"].includes(category)) {
               )
             )
           : [];
+      const category = normalizeCategory(req.body.category); if (!CATEGORIES.includes(category)) {   return res.status(400).json({ message: "Catégorie invalide" }); }
 
       const newItem = {
         id: itemId,
