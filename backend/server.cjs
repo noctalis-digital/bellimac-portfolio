@@ -395,11 +395,6 @@ app.put(
           ? sanitizeRichText(req.body.detailsHtml || req.body.details)
           : current.detailsHtml;
       const category = normalizeCategory( req.body.category, current.category || "photo" );
-
-if (!["photo", "video", "lumiere"].includes(category)) {
-  return res.status(400).json({ message: "Catégorie invalide" });
-}
-
       const coverFile = req.files?.cover?.[0];
       let cover = current.cover;
       if (coverFile) {
