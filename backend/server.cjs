@@ -294,8 +294,7 @@ app.get("/api/portfolio/:id", async (req, res, next) => {
 res.json({
   item: mapItemForResponse({
     ...item,
-    category: item.category?.trim() || "photo",
-  }),
+category: normalizeCategory(item.category, ""),  }),
 });  } catch (error) {
     next(error);
   }
