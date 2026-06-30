@@ -314,13 +314,7 @@ app.post(
       const description = sanitizeText(req.body.description || req.body.summary);
       const detailsHtml = sanitizeRichText(req.body.detailsHtml || req.body.details);
       const link = sanitizeUrl(req.body.link);
-     const category = sanitizeText(req.body.category || "photo")
-  .toLowerCase()
-  .trim();
-
-if (!["photo", "video", "lumiere"].includes(category)) {
-  return res.status(400).json({ message: "Catégorie invalide" });
-}
+     const category = normalizeCategory(req.body.category);
       const coverFile = req.files?.cover?.[0];
 
       if (!title || !description || !coverFile) {
