@@ -394,9 +394,7 @@ app.put(
         req.body.detailsHtml !== undefined || req.body.details !== undefined
           ? sanitizeRichText(req.body.detailsHtml || req.body.details)
           : current.detailsHtml;
-      const category = sanitizeText(req.body.category || current.category || "photo")
-  .toLowerCase()
-  .trim();
+      const category = normalizeCategory( req.body.category, current.category || "photo" );
 
 if (!["photo", "video", "lumiere"].includes(category)) {
   return res.status(400).json({ message: "Catégorie invalide" });
