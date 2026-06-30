@@ -37,8 +37,6 @@ const ALLOWED_ORIGINS = (process.env.ALLOWED_ORIGINS ||
   .split(",")
   .map((origin) => origin.trim())
   .filter(Boolean);
-const CATEGORIES = ["photo", "video", "lumiere"]; const normalizeCategory = (value, fallback = "photo") => {   const category = sanitizeText(value || "")     .toLowerCase()     .trim();   return CATEGORIES.includes(category) ? category : fallback; };
-
 const s3Client = new S3Client({
   region: AWS_REGION,
   credentials:
