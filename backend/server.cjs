@@ -276,8 +276,7 @@ res.json({
   items: sorted.map((item) =>
     mapItemForResponse({
       ...item,
-      category: item.category?.toLowerCase().trim() || "",
-    })
+category: normalizeCategory(item.category, ""),    })
   ),
 });
   } catch (error) {
