@@ -138,6 +138,7 @@ const sanitizeUrl = (value = "") => {
     return "";
   }
 };
+const CATEGORIES = ["photo", "video", "lumiere"]; const normalizeCategory = (value, fallback = "photo") => { const category = sanitizeText(value || "") .toLowerCase() .trim(); return CATEGORIES.includes(category) ? category : fallback; };
 
 const buildPublicUrl = (key) => `${PUBLIC_BASE_URL}/${key}`;
 
