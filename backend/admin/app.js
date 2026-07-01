@@ -28,10 +28,10 @@
   let editingId = null;
 
   const ALLOWED_CATEGORIES = ["photo", "video", "lumiere"];
-  const normalizeCategory = (value, fallback = "photo") => {
-    const category = String(value || "").toLowerCase().trim();
-    return ALLOWED_CATEGORIES.includes(category) ? category : fallback;
-  };
+  const normalizeCategory = (value) => {
+  const category = String(value || "").toLowerCase().trim();
+  return ALLOWED_CATEGORIES.includes(category) ? category : null;
+};
 
   const showToast = (message, variant = "") => {
     toast.textContent = message;
