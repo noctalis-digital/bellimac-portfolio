@@ -8,6 +8,7 @@ import Modal from "react-bootstrap/Modal";
 import { introdata, meta } from "../../config/siteContent";
 import { Link } from "react-router-dom";
 import { fetchPortfolio } from "../../services/portfolioApi";
+import { normalizePortfolioCategory } from "../../utils/portfolioCategory";
 
 const normalizeProject = (project) => {
   const gallery = project?.galleryUrls || project?.gallery || [];
@@ -25,8 +26,7 @@ const normalizeProject = (project) => {
     detailsHtml: project.detailsHtml || "",
     link: project.link || "",
 
-    // 🔥 IMPORTANT: catégorie normalisée pour filtrage futur
-    category: (project.category || "").toLowerCase().trim(),
+    category: normalizePortfolioCategory(project.category, null),
 
     coverUrl,
     gallery,

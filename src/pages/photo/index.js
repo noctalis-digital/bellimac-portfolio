@@ -11,28 +11,7 @@ import { filterByCategory } from "../../utils/filterByCategory";
 export default function Photo() {
   const { items = [], loading, error } = usePortfolio();
 
-  console.log(
-    "RAW ITEMS CATEGORIES =",
-    items.map((i) => ({
-      title: i.title,
-      category: i.category,
-    }))
-  );
-
-const photos = useMemo(() => {
-  if (!Array.isArray(items)) return [];
-
-  const normalized = items.map((i) => ({
-    ...i,
-    category: (i.category || "").toLowerCase().trim(),
-  }));
-
-  const filtered = filterByCategory(normalized, "photo");
-
-  console.log("FILTERED PHOTOS =", filtered);
-
-  return filtered;
-}, [items]);
+  const photos = useMemo(() => filterByCategory(items, "photo"), [items]);
 
   const getImage = (project) => {
     return (

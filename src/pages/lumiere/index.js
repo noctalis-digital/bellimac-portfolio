@@ -11,27 +11,8 @@ import { filterByCategory } from "../../utils/filterByCategory";
 export default function Lumiere() {
   const { items = [], loading, error } = usePortfolio();
 
-  console.log(
-    "RAW ITEMS CATEGORIES =",
-    items.map((i) => ({
-      title: i.title,
-      category: i.category,
-    }))
-  );
-
   const lights = useMemo(() => {
-    if (!Array.isArray(items)) return [];
-
-    const normalized = items.map((i) => ({
-      ...i,
-      category: (i.category || "").toLowerCase().trim(),
-    }));
-
-    const filtered = filterByCategory(normalized, "lumiere");
-
-    console.log("FILTERED LIGHTS =", filtered);
-
-    return filtered;
+    return filterByCategory(items, "lumiere");
   }, [items]);
 
   const getImage = (project) => {

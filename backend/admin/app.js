@@ -28,6 +28,10 @@
   let editingId = null;
 
   const ALLOWED_CATEGORIES = ["photo", "video", "lumiere"];
+  const normalizeCategory = (value, fallback = "photo") => {
+    const category = String(value || "").toLowerCase().trim();
+    return ALLOWED_CATEGORIES.includes(category) ? category : fallback;
+  };
 
   const showToast = (message, variant = "") => {
     toast.textContent = message;
@@ -69,7 +73,7 @@
     coverInput.value = "";
     galleryInput.value = "";
     detailsInput.value = "";
-    categoryInput.value = "";
+    categoryInput.value = "photo";
 
     existingGallery.innerHTML =
       '<p class="hint">Aucune galerie enregistrée.</p>';
@@ -107,7 +111,7 @@
     titleInput.value = item.title || "";
 descriptionInput.value = item.description || "";
 linkInput.value = item.link || "";
-categoryInput.value = item.category || "";
+categoryInput.value = normalizeCategory(item.category);
 
     quill.root.innerHTML = item.detailsHtml || "";
 
@@ -133,6 +137,7 @@ categoryInput.value = item.category || "";
         (item) => `
       <article class="portfolio-card">
         <div class="portfolio-card__meta">
+          <span class="tag">${normalizeCategory(item.category, "invalide")}</span>
           <span class="tag">${item.gallery?.length || 0} média(s)</span>
           <span>${formatDate(item.updatedAt || item.createdAt)}</span>
         </div>
@@ -183,7 +188,7 @@ categoryInput.value = item.category || "";
 
     detailsInput.value = quill.root.innerHTML;
 
-    const category = (categoryInput.value || "").toLowerCase().trim();
+    const category = normalizeCategory(categoryInput.value, "");
 
 if (!ALLOWED_CATEGORIES.includes(category)) {
   showToast("Choisissez une catégorie valide", "danger");

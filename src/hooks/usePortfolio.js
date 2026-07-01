@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { fetchPortfolio } from "../services/portfolioApi";
+import { normalizePortfolioCategory } from "../utils/portfolioCategory";
 
 const normalizeProject = (project) => {
   const gallery = project?.galleryUrls || project?.gallery || [];
@@ -17,8 +18,7 @@ const normalizeProject = (project) => {
     detailsHtml: project.detailsHtml || "",
     link: project.link || "",
 
-    // 🔥 IMPORTANT: catégorie propre pour filtres
-    category: (project.category || "").toLowerCase().trim(),
+    category: normalizePortfolioCategory(project.category, null),
 
     coverUrl,
     gallery,

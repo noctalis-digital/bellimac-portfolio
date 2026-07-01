@@ -138,7 +138,16 @@ const sanitizeUrl = (value = "") => {
     return "";
   }
 };
-const CATEGORIES = ["photo", "video", "lumiere"]; const normalizeCategory = (value, fallback = "photo") => { const category = sanitizeText(value || "") .toLowerCase() .trim(); return CATEGORIES.includes(category) ? category : fallback; };
+
+const CATEGORIES = ["photo", "video", "lumiere"];
+
+const normalizeCategory = (value, fallback = null) => {
+  const category = sanitizeText(value || "").toLowerCase().trim();
+  return CATEGORIES.includes(category) ? category : fallback;
+};
+
+const isCategoryProvided = (value) =>
+  typeof value === "string" && value.trim().length > 0;
 
 const buildPublicUrl = (key) => `${PUBLIC_BASE_URL}/${key}`;
 
@@ -272,13 +281,14 @@ app.get("/api/portfolio", async (req, res, next) => {
     const sorted = items.sort(
       (a, b) => new Date(b.updatedAt || b.createdAt) - new Date(a.updatedAt || a.createdAt)
     );
-res.json({
-  items: sorted.map((item) =>
-    mapItemForResponse({
-      ...item,
-category: normalizeCategory(item.category, ""),    })
-  ),
-});
+    res.json({
+      items: sorted.map((item) =>
+        mapItemForResponse({
+          ...item,
+          category: normalizeCategory(item.category, null),
+        })
+      ),
+    });
   } catch (error) {
     next(error);
   }
@@ -291,11 +301,13 @@ app.get("/api/portfolio/:id", async (req, res, next) => {
     if (!item) {
       return res.status(404).json({ message: "Projet introuvable." });
     }
-res.json({
-  item: mapItemForResponse({
-    ...item,
-category: normalizeCategory(item.category, ""),  }),
-});  } catch (error) {
+    res.json({
+      item: mapItemForResponse({
+        ...item,
+        category: normalizeCategory(item.category, null),
+      }),
+    });
+  } catch (error) {
     next(error);
   }
 });
@@ -314,13 +326,19 @@ app.post(
       const description = sanitizeText(req.body.description || req.body.summary);
       const detailsHtml = sanitizeRichText(req.body.detailsHtml || req.body.details);
       const link = sanitizeUrl(req.body.link);
-     const category = normalizeCategory(req.body.category);
+      const category = normalizeCategory(req.body.category, null);
       const coverFile = req.files?.cover?.[0];
 
       if (!title || !description || !coverFile) {
         return res.status(400).json({
           message:
             "Champs requis manquants : titre, description et image de couverture sont nécessaires.",
+        });
+      }
+
+      if (!category) {
+        return res.status(400).json({
+          message: `Catégorie invalide. Valeurs autorisées : ${CATEGORIES.join(", ")}.`,
         });
       }
 
@@ -394,7 +412,24 @@ app.put(
         req.body.detailsHtml !== undefined || req.body.details !== undefined
           ? sanitizeRichText(req.body.detailsHtml || req.body.details)
           : current.detailsHtml;
-      const category = normalizeCategory( req.body.category, current.category || "photo" );
+      let category = normalizeCategory(current.category, null);
+
+      if (isCategoryProvided(req.body.category)) {
+        category = normalizeCategory(req.body.category, null);
+        if (!category) {
+          return res.status(400).json({
+            message: `Catégorie invalide. Valeurs autorisées : ${CATEGORIES.join(", ")}.`,
+          });
+        }
+      }
+
+      if (!category) {
+        return res.status(400).json({
+          message:
+            "Le projet existant n'a pas de catégorie valide. Corrigez-la dans l'admin avant mise à jour.",
+        });
+      }
+
       const coverFile = req.files?.cover?.[0];
       let cover = current.cover;
       if (coverFile) {
@@ -441,16 +476,16 @@ app.put(
       }
 
       const updatedItem = {
-  ...current,
-  title,
-  description,
-  category,   // 🔥 OBLIGATOIRE
-  link,
-  detailsHtml,
-  cover,
-  gallery: updatedGallery,
-  updatedAt: new Date().toISOString(),
-};
+        ...current,
+        title,
+        description,
+        category,
+        link,
+        detailsHtml,
+        cover,
+        gallery: updatedGallery,
+        updatedAt: new Date().toISOString(),
+      };
 
       items[index] = updatedItem;
       await savePortfolioIndex(items);

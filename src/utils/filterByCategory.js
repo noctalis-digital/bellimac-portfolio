@@ -1,13 +1,12 @@
+import { normalizePortfolioCategory } from "./portfolioCategory";
+
 export const filterByCategory = (items = [], category) => {
   if (!Array.isArray(items)) return [];
 
-  const target = (category || "").toLowerCase().trim();
+  const target = normalizePortfolioCategory(category, null);
+  if (!target) return [];
 
   return items.filter((item) => {
-    const itemCategory = (item?.category || "")
-      .toLowerCase()
-      .trim();
-
-    return itemCategory === target;
+    return normalizePortfolioCategory(item?.category, null) === target;
   });
 };

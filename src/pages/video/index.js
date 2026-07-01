@@ -11,27 +11,8 @@ import { filterByCategory } from "../../utils/filterByCategory";
 export default function Video() {
   const { items = [], loading, error } = usePortfolio();
 
-  console.log(
-    "RAW ITEMS CATEGORIES =",
-    items.map((i) => ({
-      title: i.title,
-      category: i.category,
-    }))
-  );
-
   const videos = useMemo(() => {
-    if (!Array.isArray(items)) return [];
-
-    const normalized = items.map((i) => ({
-      ...i,
-      category: (i.category || "").toLowerCase().trim(),
-    }));
-
-    const filtered = filterByCategory(normalized, "video");
-
-    console.log("FILTERED VIDEOS =", filtered);
-
-    return filtered;
+    return filterByCategory(items, "video");
   }, [items]);
 
   const getImage = (project) => {
