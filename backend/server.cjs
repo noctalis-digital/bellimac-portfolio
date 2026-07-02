@@ -126,6 +126,9 @@ const sanitizeRichText = (value = "") =>
     },
   }).trim();
 
+const stripAccents = (value = "") =>
+  value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
 const sanitizeUrl = (value = "") => {
   if (!value) return "";
   try {
@@ -142,7 +145,10 @@ const sanitizeUrl = (value = "") => {
 const CATEGORIES = ["photo", "video", "lumiere"];
 
 const normalizeCategory = (value, fallback = null) => {
-  const category = sanitizeText(value || "").toLowerCase().trim();
+  const rawValue = Array.isArray(value) ? value[0] : value;
+  if (typeof rawValue !== "string") return fallback;
+
+  const category = stripAccents(rawValue).toLowerCase().trim();
   return CATEGORIES.includes(category) ? category : fallback;
 };
 

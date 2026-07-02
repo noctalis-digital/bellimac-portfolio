@@ -28,10 +28,15 @@
   let editingId = null;
 
   const ALLOWED_CATEGORIES = ["photo", "video", "lumiere"];
-  const normalizeCategory = (value) => {
-  const category = String(value || "").toLowerCase().trim();
-  return ALLOWED_CATEGORIES.includes(category) ? category : null;
-};
+  const stripAccents = (value = "") =>
+    value.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+  const normalizeCategory = (value, fallback = "photo") => {
+    const rawValue = Array.isArray(value) ? value[0] : value;
+    if (typeof rawValue !== "string") return fallback;
+
+    const category = stripAccents(rawValue).toLowerCase().trim();
+    return ALLOWED_CATEGORIES.includes(category) ? category : fallback;
+  };
 
   const showToast = (message, variant = "") => {
     toast.textContent = message;
