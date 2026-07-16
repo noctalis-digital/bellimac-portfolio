@@ -12,18 +12,18 @@ const normalizeProject = (project) => {
     "";
 
   return {
-    id: project.id,
-    title: project.title || "Projet",
-    description: project.description || "",
-    detailsHtml: project.detailsHtml || "",
-    link: project.link || "",
+  id: project.id,
+  title: project.title || "Projet",
+  description: project.description || "",
+  detailsHtml: project.detailsHtml || "",
+  link: project.link || "",
 
-    category: normalizePortfolioCategory(project.category, null),
+  category: normalizePortfolioCategory(project.category, null),
 
-    coverUrl,
-    gallery,
-    updatedAt: project.updatedAt,
-  };
+  coverUrl,
+  galleryUrls: gallery,
+  updatedAt: project.updatedAt,
+};
 };
 
 export const usePortfolio = () => {
