@@ -10,20 +10,24 @@ export default function ProjectCard({
   externalLink,
 }) {
   const [open, setOpen] = useState(false);
+  const [currentImage, setCurrentImage] = useState(0);
+  
 
-  const cover = coverUrl || galleryUrls?.[0] || "/default.jpg";
+  const cover = coverUrl || "/default.jpg";
 
-  // On retire l'image de couverture de la galerie si elle y est déjà
-  const gallery =
-    galleryUrls && galleryUrls.length > 0
-      ? galleryUrls.filter((img) => img !== cover)
-      : [];
+const images = [
+  cover,
+  ...galleryUrls.filter((img) => img !== cover),
+];
 
   return (
     <>
       <div
         className="project_card"
-        onClick={() => setOpen(true)}
+        onClick={() => {
+  setCurrentImage(0);
+  setOpen(true);
+}}
       >
         <div
           className="project_image"
@@ -40,7 +44,49 @@ export default function ProjectCard({
             className="project_modal_content"
             onClick={(e) => e.stopPropagation()}
           >
-            <img src={cover} alt={title} />
+            <img
+  src={images[currentImage]}
+  alt={title}
+  className="project_modal_image"
+/>
+    {images.length > 1 && (
+  <div className="project_modal_navigation">
+
+    <button
+      className="nav_arrow"
+      onClick={() =>
+        setCurrentImage((currentImage - 1 + images.length) % images.length)
+      }
+    >
+      ←
+    </button>
+
+    <div className="project_modal_dots">
+      {images.map((_, index) => (
+        <span
+          key={index}
+          className={
+            index === currentImage
+              ? "dot active"
+              : "dot"
+          }
+        >
+          ●
+        </span>
+      ))}
+    </div>
+
+    <button
+      className="nav_arrow"
+      onClick={() =>
+        setCurrentImage((currentImage + 1) % images.length)
+      }
+    >
+      →
+    </button>
+
+  </div>
+)}
 
             <div className="project_modal_text">
               <h2>{title}</h2>
@@ -58,21 +104,6 @@ export default function ProjectCard({
                 </a>
               )}
             </div>
-
-            {gallery.length > 0 && (
-              <div className="project_modal_gallery">
-                {gallery.map((img, index) => (
-                  <img
-                    key={index}
-                    src={img}
-                    alt={`${title} ${index + 1}`}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
-      )}
     </>
   );
 }
