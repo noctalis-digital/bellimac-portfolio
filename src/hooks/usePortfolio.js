@@ -3,8 +3,13 @@ import { fetchPortfolio } from "../services/portfolioApi";
 import { normalizePortfolioCategory } from "../utils/portfolioCategory";
 
 const normalizeProject = (project) => {
-  const gallery = project?.galleryUrls || project?.gallery || [];
-
+  const gallery = (
+  project?.galleryUrls ||
+  project?.gallery ||
+  []
+).map((img) => {
+  return typeof img === "string" ? img : img.url;
+});
   const coverUrl =
     project.coverUrl ||
     project.cover?.url ||
