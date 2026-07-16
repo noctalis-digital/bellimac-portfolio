@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { meta } from "../../config/siteContent";
 import { usePortfolio } from "../../hooks/usePortfolio";
 import { filterByCategory } from "../../utils/filterByCategory";
+import ProjectCard from "../../components/ProjectCard";
 
 export default function Lumiere() {
   const { items = [], loading, error } = usePortfolio();
