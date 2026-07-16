@@ -24,37 +24,3 @@
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 1.5rem;
 }
-
-/* CARD */
-.project_card {
-  border: 1px solid var(--secondary-color);
-  background: var(--bg-color);
-  overflow: hidden;
-}
-
-/* IMAGE */
-.project_card__img {
-  height: 220px;
-  background-size: cover;
-  background-position: center;
-}
-
-/* CONTENT */
-.project_card__content {
-  padding: 1rem;
-}
-
-.project_card__content h4 {
-  margin: 0 0 0.5rem 0;
-}
-
-.project_card__content p {
-  margin: 0;
-  color: #aaa;
-}
-
-/* KEEP YOUR EXISTING RULE */
-.feature p {
-  margin: 5px 0;
-  color: #aaa;
-}
