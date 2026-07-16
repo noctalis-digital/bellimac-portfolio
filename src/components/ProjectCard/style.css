@@ -240,31 +240,51 @@
 
 @media(max-width:768px){
 
-.project_modal{
-
-padding:15px;
-
-}
+  .project_modal {
+    padding:15px;
+  }
 
 
-.project_modal_content{
-
-padding:20px;
-
-}
+  .project_modal_content {
+    padding:20px;
+  }
 
 
-.project_modal_text h2{
-
-font-size:25px;
-
-}
+  .project_modal_text h2 {
+    font-size:25px;
+  }
 
 
-.project_modal_image{
+  .project_modal_image {
+    max-height:350px;
+  }
 
-max-height:350px;
+
   .project_modal_image_container {
+    position:relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+
+
+  .project_slider_button {
+    font-size:30px;
+    width:40px;
+    height:50px;
+  }
+
+
+  .project_slider_prev {
+    left:8px;
+  }
+
+
+  .project_slider_next {
+    right:8px;
+  }
+
+}
   position: relative;
   display: flex;
   align-items: center;
