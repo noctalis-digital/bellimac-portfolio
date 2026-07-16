@@ -1,3 +1,4 @@
+```jsx
 import "./style.css";
 import { useState } from "react";
 
@@ -10,43 +11,40 @@ export default function ProjectCard({
 }) {
   const [open, setOpen] = useState(false);
 
-  const images =
-    galleryUrls?.length > 0
-      ? galleryUrls
-      : coverUrl
-      ? [coverUrl]
-      : [];
-
   const cover = coverUrl || galleryUrls?.[0] || "/default.jpg";
+
+  // On retire l'image de couverture de la galerie si elle y est déjà
+  const gallery =
+    galleryUrls && galleryUrls.length > 0
+      ? galleryUrls.filter((img) => img !== cover)
+      : [];
 
   return (
     <>
-      <div className="project_card" onClick={() => setOpen(true)}>
+      <div
+        className="project_card"
+        onClick={() => setOpen(true)}
+      >
         <div
           className="project_image"
           style={{ backgroundImage: `url(${cover})` }}
         />
-
-        <div className="project_content">
-          <h3>{title}</h3>
-          <p>{description}</p>
-        </div>
       </div>
 
       {open && (
-        <div className="project_modal" onClick={() => setOpen(false)}>
+        <div
+          className="project_modal"
+          onClick={() => setOpen(false)}
+        >
           <div
             className="project_modal_content"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="project_modal_gallery">
-              {images.map((img, i) => (
-                <img key={i} src={img} alt={title} />
-              ))}
-            </div>
+            <img src={cover} alt={title} />
 
             <div className="project_modal_text">
               <h2>{title}</h2>
+
               <p>{description}</p>
 
               {externalLink && (
@@ -60,9 +58,22 @@ export default function ProjectCard({
                 </a>
               )}
             </div>
+
+            {gallery.length > 0 && (
+              <div className="project_modal_gallery">
+                {gallery.map((img, index) => (
+                  <img
+                    key={index}
+                    src={img}
+                    alt={`${title} ${index + 1}`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>
       )}
     </>
   );
 }
+```
