@@ -71,7 +71,7 @@ export default function Photo() {
 
            <div className="projects_grid">
 
-  {lights.map((project) => (
+  {photos.map((project) => (
     <ProjectCard
       key={project.id}
       title={project.title}
