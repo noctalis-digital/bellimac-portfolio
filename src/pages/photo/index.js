@@ -7,22 +7,12 @@ import { Link } from "react-router-dom";
 import { meta } from "../../config/siteContent";
 import { usePortfolio } from "../../hooks/usePortfolio";
 import { filterByCategory } from "../../utils/filterByCategory";
+import ProjectCard from "../../components/ProjectCard";
 
 export default function Photo() {
   const { items = [], loading, error } = usePortfolio();
 
   const photos = useMemo(() => filterByCategory(items, "photo"), [items]);
-
-  const getImage = (project) => {
-    return (
-      project?.coverUrl ||
-      project?.galleryUrls?.[0] ||
-      project?.cover?.url ||
-      project?.image ||
-      project?.thumbnail ||
-      null
-    );
-  };
 
   return (
     <HelmetProvider>
@@ -79,38 +69,20 @@ export default function Photo() {
               <p>Aucun projet photo.</p>
             )}
 
-            <div className="projects_grid">
+           <div className="projects_grid">
 
-              {photos.map((project) => {
-                const img = getImage(project);
+  {lights.map((project) => (
+    <ProjectCard
+      key={project.id}
+      title={project.title}
+      description={project.description}
+      coverUrl={project.coverUrl}
+      galleryUrls={project.galleryUrls}
+      externalLink={project.link}
+    />
+  ))}
 
-                return (
-                  <article className="project_card" key={project.id}>
-
-                    <div
-                      className="project_image"
-                      style={{
-                        backgroundImage: img ? `url(${img})` : "none",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        width: "100%",
-                        height: "260px",
-                        backgroundColor: "#222",
-                      }}
-                    />
-
-                    <div className="project_body">
-                      <h4>{project.title}</h4>
-                      <p>{project.description}</p>
-
-                      
-                    </div>
-
-                  </article>
-                );
-              })}
-
-            </div>
+</div>
 
           </Col>
 
