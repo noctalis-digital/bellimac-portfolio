@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 import { meta } from "../../config/siteContent";
 import { usePortfolio } from "../../hooks/usePortfolio";
 import { filterByCategory } from "../../utils/filterByCategory";
+import ProjectCard from "../../components/ProjectCard";
 
 export default function Video() {
   const { items = [], loading, error } = usePortfolio();
@@ -14,17 +15,6 @@ export default function Video() {
   const videos = useMemo(() => {
     return filterByCategory(items, "video");
   }, [items]);
-
-  const getImage = (project) => {
-    return (
-      project?.coverUrl ||
-      project?.galleryUrls?.[0] ||
-      project?.cover?.url ||
-      project?.image ||
-      project?.thumbnail ||
-      null
-    );
-  };
 
   return (
     <HelmetProvider>
