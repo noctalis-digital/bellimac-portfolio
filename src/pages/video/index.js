@@ -85,7 +85,7 @@ export default function Video() {
 
             <div className="projects_grid">
 
-  {lights.map((project) => (
+  {videos.map((project) => (
     <ProjectCard
       key={project.id}
       title={project.title}
