@@ -14,18 +14,6 @@ export default function Lumiere() {
   const lights = useMemo(() => {
     return filterByCategory(items, "lumiere");
   }, [items]);
-
-  const getImage = (project) => {
-    return (
-      project?.coverUrl ||
-      project?.galleryUrls?.[0] ||
-      project?.cover?.url ||
-      project?.image ||
-      project?.thumbnail ||
-      null
-    );
-  };
-
   return (
     <HelmetProvider>
       <Container>
@@ -91,34 +79,18 @@ export default function Lumiere() {
 
             <div className="projects_grid">
 
-              {lights.map((project) => {
-                const img = getImage(project);
+  {lights.map((project) => (
+    <ProjectCard
+      key={project.id}
+      title={project.title}
+      description={project.description}
+      coverUrl={project.coverUrl}
+      galleryUrls={project.galleryUrls}
+      externalLink={project.link}
+    />
+  ))}
 
-                return (
-                  <article className="project_card" key={project.id}>
-
-                    <div
-                      className="project_image"
-                      style={{
-                        backgroundImage: img ? `url(${img})` : "none",
-                        backgroundSize: "cover",
-                        backgroundPosition: "center",
-                        width: "100%",
-                        height: "260px",
-                        backgroundColor: "#222",
-                      }}
-                    />
-
-                    <div className="project_body">
-                      <h4>{project.title}</h4>
-                      <p>{project.description}</p>
-                    </div>
-
-                  </article>
-                );
-              })}
-
-            </div>
+</div>
 
           </Col>
 
