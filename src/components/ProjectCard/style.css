@@ -192,35 +192,17 @@
 
 
 .project_modal_text {
-
-  margin-top:25px;
-
+  color: white;
 }
-
 
 .project_modal_text h2 {
-
-  color:white;
-
-  font-size:32px;
-
-  margin-bottom:15px;
-
+  color: white;
 }
-
 
 .project_modal_text p {
-
-  color:#ccc;
-
-  line-height:1.7;
-
-  margin-bottom:20px;
-
+  color: rgba(255,255,255,0.8);
+  line-height: 1.7;
 }
-
-
-
 /* ===========================
    LIEN
 =========================== */
@@ -282,6 +264,69 @@ font-size:25px;
 .project_modal_image{
 
 max-height:350px;
+  .project_modal_image_container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project_modal_image {
+  width: 100%;
+  max-height: 600px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+
+.project_slider_button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+
+  background: rgba(0,0,0,0.4);
+  border: none;
+  color: white;
+
+  font-size: 35px;
+  width: 45px;
+  height: 60px;
+
+  cursor: pointer;
+  z-index: 2;
+}
+
+.project_slider_button:hover {
+  background: rgba(47,128,255,0.7);
+}
+
+.project_slider_prev {
+  left: 10px;
+}
+
+.project_slider_next {
+  right: 10px;
+}
+
+
+.project_slider_dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin: 15px 0 25px;
+}
+
+.project_slider_dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  cursor: pointer;
+}
+
+.project_slider_dot.active {
+  background: white;
+}
 
 }
 
