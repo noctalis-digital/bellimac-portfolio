@@ -309,20 +309,7 @@ function CursorCore({
     if (typeof navigator !== 'undefined' && IsDevice.any()) {
       return <React.Fragment></React.Fragment>
     }
-    return (
-      <CursorCore
-        outerStyle={outerStyle}
-        innerStyle={innerStyle}
-        color={color}
-        outerAlpha={outerAlpha}
-        innerSize={innerSize}
-        innerScale={innerScale}
-        outerSize={outerSize}
-        outerScale={outerScale}
-        trailingSpeed={trailingSpeed}
-        clickables={clickables}
-      />
-    )
+    return null;
   }
   
  
