@@ -280,7 +280,7 @@ function CursorCore({
     }
   
     // Hide / Show global cursor
-    document.body.style.cursor = 'none'
+    document.body.style.cursor = 'auto'
   
     return (
       <React.Fragment>
