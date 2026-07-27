@@ -206,7 +206,7 @@ function CursorCore({
       const clickableEls = document.querySelectorAll(clickables.join(','))
   
       clickableEls.forEach((el) => {
-        el.style.cursor = 'none'
+        el.style.cursor = 'pointer'
   
         el.addEventListener('mouseover', () => {
           setIsActive(true)
