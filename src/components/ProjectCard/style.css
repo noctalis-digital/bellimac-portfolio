@@ -46,9 +46,11 @@
 }
 
 
-.project_modal_content {
+project_modal_content {
 
-  width:min(1000px,95vw);
+  width:min(900px,90vw);
+  max-height:80vh;
+  overflow-y:auto;
 
   background:#111;
 
@@ -60,7 +62,6 @@
 
   box-shadow:
   0 25px 80px rgba(0,0,0,.5);
-
 }
 
 
