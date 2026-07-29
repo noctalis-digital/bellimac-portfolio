@@ -29,7 +29,7 @@ export default function ProjectCard({
       prev === 0 ? images.length - 1 : prev - 1
     );
   };
-
+  const [imageLoading, setImageLoading] = useState(false);
   const openModal = () => {
     setCurrentImage(0);
     setOpen(true);
