@@ -19,16 +19,20 @@ export default function ProjectCard({
   ];
 
   const nextImage = () => {
-    setCurrentImage((prev) =>
-      prev === images.length - 1 ? 0 : prev + 1
-    );
-  };
+  setImageLoading(true);
 
-  const previousImage = () => {
-    setCurrentImage((prev) =>
-      prev === 0 ? images.length - 1 : prev - 1
-    );
-  };
+  setCurrentImage((prev) =>
+    prev === images.length - 1 ? 0 : prev + 1
+  );
+};
+
+const previousImage = () => {
+  setImageLoading(true);
+
+  setCurrentImage((prev) =>
+    prev === 0 ? images.length - 1 : prev - 1
+  );
+};
   const [imageLoading, setImageLoading] = useState(false);
   const openModal = () => {
     setCurrentImage(0);
