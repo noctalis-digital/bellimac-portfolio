@@ -35,9 +35,16 @@ const previousImage = () => {
 };
   const [imageLoading, setImageLoading] = useState(false);
   const openModal = () => {
-    setCurrentImage(0);
-    setOpen(true);
-  };
+  setCurrentImage(0);
+  setImageLoading(false);
+
+  images.forEach((src) => {
+    const img = new Image();
+    img.src = src;
+  });
+
+  setOpen(true);
+};
 
   return (
     <>
@@ -78,11 +85,25 @@ const previousImage = () => {
               )}
 
 
-              <img
-                className="project_modal_image"
-                src={images[currentImage]}
-                alt={title}
-              />
+             <div className="project_modal_image_wrapper">
+
+  {imageLoading && (
+    <div className="project_loader">
+      Chargement...
+    </div>
+  )}
+
+  <img
+    className="project_modal_image"
+    src={images[currentImage]}
+    alt={title}
+    onLoad={() => setImageLoading(false)}
+    style={{
+      display: imageLoading ? "none" : "block",
+    }}
+  />
+
+</div>
 
 
               {images.length > 1 && (
@@ -109,7 +130,10 @@ const previousImage = () => {
                         ? "project_slider_dot active"
                         : "project_slider_dot"
                     }
-                    onClick={() => setCurrentImage(index)}
+                    onClick={() => {
+  setImageLoading(true);
+  setCurrentImage(index);
+}}
                   />
                 ))}
 
