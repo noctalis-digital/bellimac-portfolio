@@ -270,8 +270,10 @@ project_modal_content {
 
 
   .project_modal_content {
-    padding:20px;
-  }
+  width:88vw;
+  max-height:75vh;
+  padding:20px;
+}
 
 
   .project_modal_text h2 {
